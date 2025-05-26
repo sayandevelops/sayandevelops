@@ -77,8 +77,8 @@ export function ContactSection() {
               <Mail className="h-6 w-6 text-primary mt-1 shrink-0" />
               <div>
                 <h4 className="font-semibold">Email</h4>
-                <a href="mailto:contact@sayandevelops.com" className="text-primary hover:underline">
-                  contact@sayandevelops.com
+                <a href="mailto:sayandevelops@gmail.com" className="text-primary hover:underline">
+                  sayandevelops@gmail.com
                 </a>
               </div>
             </div>

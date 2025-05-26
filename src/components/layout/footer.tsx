@@ -2,8 +2,8 @@ import Link from "next/link"
 import { Github, Linkedin, Youtube, Heart } from "lucide-react"
 
 const socialLinks = [
-  { href: "https://github.com/sayanmondal", label: "GitHub", icon: Github },
-  { href: "https://linkedin.com/in/sayanmondal", label: "LinkedIn", icon: Linkedin },
+  { href: "https://github.com/sayandevelops", label: "GitHub", icon: Github },
+  { href: "https://www.linkedin.com/in/sayandevelops/", label: "LinkedIn", icon: Linkedin },
   { href: "https://youtube.com/sayanmondal", label: "YouTube", icon: Youtube },
 ]
 
