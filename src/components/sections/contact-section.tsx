@@ -1,8 +1,10 @@
+
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -18,6 +20,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Mail, MapPin, Phone } from "lucide-react"
+import { sendContactEmail } from "@/app/actions/send-contact-email"
 
 
 const contactFormSchema = z.object({
@@ -30,6 +33,7 @@ type ContactFormValues = z.infer<typeof contactFormSchema>
 
 export function ContactSection() {
   const { toast } = useToast()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -40,14 +44,36 @@ export function ContactSection() {
   })
 
   async function onSubmit(data: ContactFormValues) {
-    // Here you would typically send the data to a backend (e.g., Firebase Function or API endpoint)
-    // For this example, we'll just simulate a successful submission.
-    console.log("Form submitted:", data)
-    toast({
-      title: "Message Sent!",
-      description: "Thanks for reaching out. I'll get back to you soon.",
-    })
-    form.reset() // Reset form fields after submission
+    setIsSubmitting(true)
+    try {
+      const result = await sendContactEmail(data);
+
+      if (result.success) {
+        toast({
+          title: "Message Sent!",
+          description: "Thanks for reaching out. I'll get back to you soon.",
+        })
+        form.reset()
+      } else {
+        let description = result.error || "An unknown error occurred.";
+        if (result.issues) {
+          description += " Issues: " + result.issues.map(issue => `${issue.path.join('.')}: ${issue.message}`).join(', ');
+        }
+        toast({
+          title: "Error Sending Message",
+          description: description,
+          variant: "destructive",
+        })
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred while sending the message.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -142,8 +168,8 @@ export function ContactSection() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full md:w-auto shadow-lg hover:shadow-primary/50 transition-shadow" disabled={form.formState.isSubmitting}>
-                  {form.formState.isSubmitting ? "Sending..." : "Send Message"}
+                <Button type="submit" className="w-full md:w-auto shadow-lg hover:shadow-primary/50 transition-shadow" disabled={isSubmitting}>
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </Form>
