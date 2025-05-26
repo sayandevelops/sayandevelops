@@ -4,7 +4,7 @@ import { Github, Linkedin, Youtube, Heart } from "lucide-react"
 const socialLinks = [
   { href: "https://github.com/sayandevelops", label: "GitHub", icon: Github },
   { href: "https://www.linkedin.com/in/sayandevelops/", label: "LinkedIn", icon: Linkedin },
-  { href: "https://youtube.com/sayanmondal", label: "YouTube", icon: Youtube },
+  { href: "https://youtube.com/@hustlewithsayan?si=Q_WmnhAiqcxMO-g8", label: "YouTube", icon: Youtube },
 ]
 
 const quickLinks = [
