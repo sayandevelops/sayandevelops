@@ -8,6 +8,22 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem', // Default padding for smallest screens
+        sm: '2rem',      // Padding for small screens (640px) and up
+        lg: '3rem',      // Padding for large screens (1024px) and up
+        xl: '4rem',      // Padding for extra-large screens (1280px) and up
+      },
+      // You can also customize the max-widths for each breakpoint if needed
+      // screens: {
+      //   sm: '640px',
+      //   md: '768px',
+      //   lg: '1024px',
+      //   xl: '1280px',
+      // }
+    },
   	extend: {
   		colors: {
   			background: 'hsl(var(--background))',
