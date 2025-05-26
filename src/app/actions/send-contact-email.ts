@@ -10,7 +10,7 @@ const contactFormSchema = z.object({
   message: z.string().min(1, "Message is required"),
 });
 
-const apiKey = process.env.RESEND_API_KEY;
+const apiKey = process.env.RESEND_API_KEY; // Corrected: Use RESEND_API_KEY
 let resend: Resend | null = null;
 
 if (apiKey) {
@@ -23,7 +23,7 @@ if (apiKey) {
 const recipientEmail = 'sayandevelops@gmail.com'; 
 
 export async function sendContactEmail(formData: { name: string, email: string, message: string }) {
-  if (!resend) {
+  if (!resend) { 
     return { 
       success: false, 
       error: "Email sending is not configured. RESEND_API_KEY is missing. Please check server logs and .env.local file.",
