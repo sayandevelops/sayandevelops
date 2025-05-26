@@ -32,14 +32,19 @@ export type Review = {
 };
 
 export const skillsData: Skill[] = [
-  { name: "HTML5", level: 95 },
+ { name: "HTML5", level: 95 },
   { name: "CSS3 & Tailwind", level: 90 },
   { name: "JavaScript (ES6+)", level: 85 },
   { name: "React & Next.js", level: 90 },
-  { name: "Firebase", level: 80 },
   { name: "Node.js & Express", level: 75 },
+  { name: "Firebase", level: 80 },
+  { name: "MongoDB", level: 70 },
   { name: "Git & GitHub", level: 85 },
   { name: "UI/UX Principles", level: 70 },
+  { name: "GSAP / Framer Motion", level: 75 },
+  { name: "API Integration (REST)", level: 85 },
+  { name: "Deployment (Vercel / Netlify)", level: 80 }
+
 ];
 
 export const servicesData: Service[] = [
@@ -59,6 +64,15 @@ export const servicesData: Service[] = [
     title: "Firebase Solutions",
     description: "Leveraging Firebase for backend services, authentication, real-time databases, and hosting.",
   },
+{
+  title: "AI Chatbot",
+  description: "Developed an interactive AI-powered chatbot integrated with a language model API. Features include dynamic conversation flow, smooth UI animations, and a responsive design for seamless user experience across devices."
+},
+{
+  title: "SEO Service Website",
+  description: "Developed a modern, SEO-optimized website . Implemented server-side rendering (SSR), meta tags, and schema markup to enhance search engine visibility and performance."
+},
+
 ];
 
 export const projectsData: Project[] = [
@@ -74,10 +88,10 @@ export const projectsData: Project[] = [
   },
   {
     id: "proj2",
-    title: "Task Management App",
+    title: "Affiliate - Business Website",
     image: "https://placehold.co/600x400.png",
-    dataAiHint: "productivity app",
-    techStack: ["React", "Firebase Auth", "Firestore", "Chakra UI"],
+    dataAiHint: "Affiliate Website",
+    techStack: ["HTML", "CSS", "JS", "Typescript" , "Goolgle Form / HTML FORM" ,],
     description: "A collaborative task management tool to help teams organize and track their work efficiently.",
     liveLink: "#",
     githubLink: "#",
@@ -96,8 +110,8 @@ export const projectsData: Project[] = [
 export const reviewsData: Review[] = [
   {
     id: "rev1",
-    name: "Jane Doe",
-    avatar: "https://placehold.co/100x100.png",
+    name: "RX",
+    avatar: "https://i.pravatar.cc/100?img=3",
     dataAiHint: "person portrait",
     rating: 5,
     text: "Sayan delivered an exceptional product on time and with great communication. Highly recommended!",
@@ -105,8 +119,8 @@ export const reviewsData: Review[] = [
   },
   {
     id: "rev2",
-    name: "John Smith",
-    avatar: "https://placehold.co/100x100.png",
+    name: "John",
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
     dataAiHint: "professional headshot",
     rating: 4,
     text: "Great to work with, very knowledgeable and brought our vision to life. Some minor delays but overall excellent.",
@@ -114,11 +128,11 @@ export const reviewsData: Review[] = [
   },
   {
     id: "rev3",
-    name: "Alice Brown",
-    avatar: "https://placehold.co/100x100.png",
+    name: "Ratnakar Halder ",
+    avatar: "https://i.pravatar.cc/100?img=12",
     dataAiHint: "business person",
     rating: 5,
     text: "The UI/UX design Sayan provided was top-notch and significantly improved our user engagement.",
-    company: "Innovate Hub",
+    company: "Mediatexpert",
   },
 ];

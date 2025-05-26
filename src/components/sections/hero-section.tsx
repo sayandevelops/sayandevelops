@@ -28,7 +28,7 @@ export function HeroSection() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 animate-fadeInUp animation-delay-400 mb-12">
           <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
-            <Link href="/sayan_mondal_resume.pdf" target="_blank" download>
+            <Link href="https://drive.google.com/file/d/1nyb6v4d7iynS9FldXAglCjzQaCKzXXL2/view?usp=sharing" target="_blank" download>
               <Download className="mr-2 h-5 w-5" />
               Download Resume
             </Link>

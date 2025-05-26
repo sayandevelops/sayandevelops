@@ -7,7 +7,7 @@ export function SkillsSection() {
   return (
     <section id="skills" className="container">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold tracking-tight">My Skills</h2>
+        <h2 className="text-4xl font-bold tracking-tight">Top Skills</h2>
         <p className="text-lg text-muted-foreground mt-2">
           A showcase of my technical capabilities and expertise.
         </p>
