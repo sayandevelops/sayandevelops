@@ -32,20 +32,22 @@ export type Review = {
 };
 
 export const skillsData: Skill[] = [
- { name: "HTML5", level: 95 },
-  { name: "CSS3 & Tailwind", level: 90 },
-  { name: "JavaScript (ES6+)", level: 85 },
-  { name: "React & Next.js", level: 90 },
-  { name: "Node.js & Express", level: 75 },
-  { name: "Firebase", level: 80 },
-  { name: "MongoDB", level: 70 },
-  { name: "Git & GitHub", level: 85 },
-  { name: "UI/UX Principles", level: 70 },
-  { name: "GSAP / Framer Motion", level: 75 },
-  { name: "API Integration (REST)", level: 85 },
-  { name: "Deployment (Vercel / Netlify)", level: 80 }
-
+  { name: "HTML5, CSS3, Tailwind", level: 90 },
+  { name: "JavaScript (ES6+), TypeScript", level: 85 },
+  { name: "React.js, Next.js", level: 90 },
+  { name: "Node.js, Express.js", level: 75 },
+  { name: "MongoDB, SQL Basics", level: 70 },
+  { name: "Firebase (Auth, DB, Hosting)", level: 80 },
+  { name: "Git, GitHub, Version Control", level: 85 },
+  { name: "API Integration (REST, JSON)", level: 85 },
+  { name: "Deployment (Vercel, Netlify, Render)", level: 80 },
+  { name: "Responsive Design, Media Queries", level: 85 },
+  { name: "Debugging, Chrome DevTools", level: 80 },
+  { name: "GSAP, Framer Motion, Animations", level: 75 },
+  { name: "UI/UX Principles, Figma", level: 70 },
+  { name: "AI Integration (Chatbots, APIs), Model Training", level: 85 }
 ];
+
 
 export const servicesData: Service[] = [
   {
@@ -65,8 +67,12 @@ export const servicesData: Service[] = [
     description: "Leveraging Firebase for backend services, authentication, real-time databases, and hosting.",
   },
 {
-  title: "AI Chatbot",
-  description: "Developed an interactive AI-powered chatbot integrated with a language model API. Features include dynamic conversation flow, smooth UI animations, and a responsive design for seamless user experience across devices."
+  title: "Custom AI Chatbot",
+  description: "Engineered a fully customizable AI-powered chatbot from scratch, integrating both frontend and backend systems. Trained and fine-tuned language models for domain-specific performance, enabling personalized responses. Implemented smooth UI/UX with GSAP animations and ensured responsive, device-friendly design. Ideal for client-specific use cases including customer support, cooking assistants, and learning bots."
+},
+{
+  title: "AI Solutions Developer",
+  description: "Built advanced, production-ready AI systems involving custom model training, fine-tuning, and integration into real-world web applications. Specialized in creating scalable, domain-specific AI features such as chat interfaces, intelligent assistants, and dynamic content generators using custom-trained models and APIs. Ensured full-stack integration with responsive UIs, GSAP animations, and optimized deployment."
 },
 {
   title: "SEO Service Website",
@@ -76,16 +82,17 @@ export const servicesData: Service[] = [
 ];
 
 export const projectsData: Project[] = [
-  {
-    id: "proj1",
-    title: "E-commerce Platform",
-    image: "https://placehold.co/600x400.png",
-    dataAiHint: "online store",
-    techStack: ["React", "Next.js", "Firebase", "Tailwind CSS"],
-    description: "A full-featured e-commerce website with product listings, cart functionality, and user authentication.",
-    liveLink: "#",
-    githubLink: "#",
-  },
+ {
+  id: "proj1",
+  title: "FlavorAI",
+  image: "https://placehold.co/600x400.png",
+  dataAiHint: "AI Cooking Assistant",
+  techStack: ["React", "Next.js", "Firebase", "Tailwind CSS"],
+  description: "FlavorAI is an AI-powered cooking assistant chatbot built with React and Next.js. It helps users find recipes, cooking tips, and ingredient suggestions using AI integration. Features include real-time chat, smooth GSAP animations, responsive UI, and Firebase-based user authentication and hosting.",
+  liveLink: "https://flavor-ai-pied.vercel.app/",
+  
+},
+
   {
     id: "proj2",
     title: "Affiliate - Business Website",
@@ -94,10 +101,37 @@ export const projectsData: Project[] = [
     techStack: ["HTML", "CSS", "JS", "Typescript" , "Goolgle Form / HTML FORM" ,],
     description: "A collaborative task management tool to help teams organize and track their work efficiently.",
     liveLink: "#",
-    githubLink: "#",
+   
   },
   {
     id: "proj3",
+    title: "Portfolio Website",
+    image: "https://placehold.co/600x400.png",
+    dataAiHint: "personal website",
+    techStack: ["Next.js", "Tailwind CSS", "Framer Motion"],
+    description: "A sleek and modern personal portfolio to showcase projects and skills.",
+    liveLink: "#",
+  },
+  {
+    id: "proj4",
+    title: "Portfolio Website",
+    image: "https://placehold.co/600x400.png",
+    dataAiHint: "personal website",
+    techStack: ["Next.js", "Tailwind CSS", "Framer Motion"],
+    description: "A sleek and modern personal portfolio to showcase projects and skills.",
+    liveLink: "#",
+  },
+  {
+    id: "proj5",
+    title: "Portfolio Website",
+    image: "https://placehold.co/600x400.png",
+    dataAiHint: "personal website",
+    techStack: ["Next.js", "Tailwind CSS", "Framer Motion"],
+    description: "A sleek and modern personal portfolio to showcase projects and skills.",
+    liveLink: "#",
+  },
+  {
+    id: "proj6",
     title: "Portfolio Website",
     image: "https://placehold.co/600x400.png",
     dataAiHint: "personal website",

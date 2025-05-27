@@ -6,7 +6,7 @@ import { z } from 'zod';
 const contactFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
-  address: z.string().min(1, "Address is required"), // <-- Add this line
+  country: z.string().min(1, "country is required"), // <-- Add this line
   message: z.string().min(1, "Message is required"),
 });
 
@@ -21,7 +21,7 @@ if (apiKey) {
 
 const recipientEmail = 'sayandevelops@gmail.com';
 
-export async function sendContactEmail(formData: { name: string, email: string, address: string, message: string }) { // <-- Add address here
+export async function sendContactEmail(formData: { name: string, email: string, country: string, message: string }) { // <-- Add address here
   if (!resend) { 
     return { 
       success: false, 
@@ -35,7 +35,7 @@ export async function sendContactEmail(formData: { name: string, email: string, 
       return { success: false, error: "Invalid form data.", issues: validation.error.issues };
     }
 
-    const { name, email, address, message } = validation.data; // <-- Destructure address
+    const { name, email, country, message } = validation.data; // <-- Destructure address
 
     const { data, error } = await resend.emails.send({
       from: 'SayanDevelops Portfolio <onboarding@resend.dev>',
@@ -46,7 +46,7 @@ export async function sendContactEmail(formData: { name: string, email: string, 
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Address:</strong> ${address}</p>
+          <p><strong>country:</strong> ${country}</p>
           <p><strong>Message:</strong></p>
           <p>${message.replace(/\n/g, '<br>')}</p>
         </div>

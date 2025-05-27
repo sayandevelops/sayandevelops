@@ -26,7 +26,7 @@ import { sendContactEmail } from "@/app/actions/send-contact-email"
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters.").max(50, "Name must be less than 50 characters."),
   email: z.string().email("Invalid email address."),
-   address: z.string().min(5, "Address must be at least 5 characters.").max(100, "Address must be less than 100 characters."), // <-- Add this line
+   country: z.string().min(5, "Address must be at least 5 characters.").max(100, "Address must be less than 100 characters."), // <-- Add this line
   message: z.string().min(10, "Message must be at least 10 characters.").max(500, "Message must be less than 500 characters."),
 })
 
@@ -40,7 +40,7 @@ export function ContactSection() {
     defaultValues: {
       name: "",
       email: "",
-      address: "",
+      country: "",
       message: "",
     },
   })
@@ -155,12 +155,12 @@ export function ContactSection() {
                 />
                 <FormField
   control={form.control}
-  name="address"
+  name="country"
   render={({ field }) => (
     <FormItem>
-      <FormLabel>Address</FormLabel>
+      <FormLabel>Country</FormLabel>
       <FormControl>
-        <Input type="text" placeholder="Your Address" autoComplete="off" {...field} />
+        <Input type="text" placeholder="Country" autoComplete="on" {...field} />
       </FormControl>
       <FormMessage />
     </FormItem>
