@@ -1,4 +1,3 @@
-
 'use server';
 
 import { Resend } from 'resend';
@@ -7,10 +6,11 @@ import { z } from 'zod';
 const contactFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
+  address: z.string().min(1, "Address is required"), // <-- Add this line
   message: z.string().min(1, "Message is required"),
 });
 
-const apiKey = process.env.RESEND_API_KEY; // Corrected: Use RESEND_API_KEY
+const apiKey = process.env.RESEND_API_KEY;
 let resend: Resend | null = null;
 
 if (apiKey) {
@@ -19,10 +19,9 @@ if (apiKey) {
   console.error("Resend API key is missing. Make sure RESEND_API_KEY is set in your .env.local file and the server has been restarted.");
 }
 
-// This is where the notification email will be sent.
-const recipientEmail = 'sayandevelops@gmail.com'; 
+const recipientEmail = 'sayandevelops@gmail.com';
 
-export async function sendContactEmail(formData: { name: string, email: string, message: string }) {
+export async function sendContactEmail(formData: { name: string, email: string, address: string, message: string }) { // <-- Add address here
   if (!resend) { 
     return { 
       success: false, 
@@ -36,14 +35,10 @@ export async function sendContactEmail(formData: { name: string, email: string, 
       return { success: false, error: "Invalid form data.", issues: validation.error.issues };
     }
 
-    const { name, email, message } = validation.data;
+    const { name, email, address, message } = validation.data; // <-- Destructure address
 
-    // IMPORTANT: You will also need to verify a domain with Resend to send emails.
-    // Update the `from` address below to use your verified domain.
-    // For example: 'Portfolio Contact <noreply@yourverifieddomain.com>'
-    // Using 'onboarding@resend.dev' is for initial testing and may have limitations.
     const { data, error } = await resend.emails.send({
-      from: 'SayanDevelops Portfolio <onboarding@resend.dev>', // IMPORTANT: Replace with your verified Resend domain email
+      from: 'SayanDevelops Portfolio <onboarding@resend.dev>',
       to: [recipientEmail],
       subject: `New Contact Form Message from ${name}`,
       html: `
@@ -51,11 +46,12 @@ export async function sendContactEmail(formData: { name: string, email: string, 
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Address:</strong> ${address}</p>
           <p><strong>Message:</strong></p>
           <p>${message.replace(/\n/g, '<br>')}</p>
         </div>
       `,
-      reply_to: email, // Allows you to reply directly to the sender from your email client
+      reply_to: email,
     });
 
     if (error) {

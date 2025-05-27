@@ -26,6 +26,7 @@ import { sendContactEmail } from "@/app/actions/send-contact-email"
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters.").max(50, "Name must be less than 50 characters."),
   email: z.string().email("Invalid email address."),
+   address: z.string().min(5, "Address must be at least 5 characters.").max(100, "Address must be less than 100 characters."), // <-- Add this line
   message: z.string().min(10, "Message must be at least 10 characters.").max(500, "Message must be less than 500 characters."),
 })
 
@@ -39,6 +40,7 @@ export function ContactSection() {
     defaultValues: {
       name: "",
       email: "",
+      address: "",
       message: "",
     },
   })
@@ -132,7 +134,7 @@ export function ContactSection() {
                     <FormItem>
                       <FormLabel>Full Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" {...field} />
+                        <Input placeholder="Your Name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -145,12 +147,25 @@ export function ContactSection() {
                     <FormItem>
                       <FormLabel>Email Address</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="john.doe@example.com" {...field} />
+                        <Input type="email" placeholder="email@example.com" autoComplete="on" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+                <FormField
+  control={form.control}
+  name="address"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Address</FormLabel>
+      <FormControl>
+        <Input type="text" placeholder="Your Address" autoComplete="off" {...field} />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
                 <FormField
                   control={form.control}
                   name="message"
