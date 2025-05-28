@@ -85,7 +85,7 @@ export const projectsData: Project[] = [
  {
   id: "proj1",
   title: "FlavorAI",
-  image: "https://placehold.co/600x400.png",
+  image: "/FlavorAI.png",
   dataAiHint: "AI Cooking Assistant",
   techStack: ["React", "Next.js", "Firebase", "Tailwind CSS"],
   description: "FlavorAI is an AI-powered cooking assistant chatbot built with React and Next.js. It helps users find recipes, cooking tips, and ingredient suggestions using AI integration. Features include real-time chat, smooth GSAP animations, responsive UI, and Firebase-based user authentication and hosting.",
