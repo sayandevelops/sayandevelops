@@ -24,7 +24,7 @@ export function HeroSection() {
           SayanDevelops
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-10 max-w-3xl animate-fadeInUp animation-delay-200">
-          Web Developer | Programmer | Tech Enthusiast
+          Sayan Mondal – Turning passion into projects, mistakes into lessons, and dreams into code.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 animate-fadeInUp animation-delay-400 mb-12">
           <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
