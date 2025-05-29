@@ -84,7 +84,7 @@ export const projectsData: Project[] = [
     title: "FlavorAI",
     image: "/FlavorAI.png",
     dataAiHint: "AI Cooking Assistant",
-    techStack: ["HTML", "Javascript" ,"React", "Firebase", "Tailwind CSS", "Responsive Design"],
+    techStack: ["HTML", "Javascript" ,"React", "Firebase", "Tailwind CSS","Python", "Tensorflow" , "Responsive Design"],
     description: "FlavorAI is an AI-powered cooking assistant chatbot built with React and Next.js. It helps users find recipes, cooking tips, and ingredient suggestions using AI integration. Features include real-time chat, smooth GSAP animations, responsive UI, and Firebase-based user authentication and hosting.",
     liveLink: "https://flavor-ai-pied.vercel.app/",
 
