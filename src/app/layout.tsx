@@ -80,8 +80,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
+    icon: '/sayanlogo.png',
+    shortcut: '/sayanlogo.png',
     apple: '/apple-touch-icon.png',
   },
   themeColor: '#0f172a',
