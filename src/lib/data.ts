@@ -40,8 +40,8 @@ export const skillsData: Skill[] = [
   { name: "Git, GitHub, Version Control, DevTools", level: 85 },
   { name: "Deployment: Vercel, Netlify, Render", level: 80 },
   { name: "UI/UX Design, Figma, Animations", level: 75 },
-  { name: "AI Integration, Chatbots, API ", level: 85 },
-  { name: "Python, TensorFlow, Model Training, Fine-tuning", level: 80 }
+  { name: "AI Integration, Chatbots, API  SaaS Tools Development", level: 85 },
+  { name: "Python, TensorFlow, Model Training, Fine-tuning AI Automation & Workflow Bots", level: 80 }
 ];
 
 
