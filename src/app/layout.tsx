@@ -14,7 +14,7 @@ const geistSans = Geist({
 export const metadata: Metadata = {
   title: 'SayanDevelops Portfolio',
   description:
-    'Explore the portfolio of Sayan, a passionate Web Developer and AI enthusiast. Discover modern web projects, AI integrations, UI/UX design, and innovative solutions. Available for freelance and collaboration.',
+ 'Discover the work of Sayan Mondal at SayanDevelops — a skilled full-stack developer building future-ready websites, apps, and AI/ML-powered solutions. Available for freelance and collaboration.',
   keywords: [
     'SayanDevelops',
     'Web Developer',
