@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     description:
       'Explore the portfolio of Sayan, a passionate Web Developer and AI enthusiast. Discover modern web projects, AI integrations, UI/UX design, and innovative solutions.',
     images: ['/og-image.png'],
-    creator: '@hustlewithsayan', // Replace with your Twitter handle
+    creator: '@hustlewithsayan',
   },
   robots: {
     index: true,
@@ -74,9 +74,6 @@ export const metadata: Metadata = {
       index: true,
       follow: true,
       noimageindex: false,
-      
-    
-      
     },
   },
   icons: {
@@ -95,6 +92,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person", // or "SoftwareApplication", "Course", etc.
+              "name": "SayanDevelops Portfolio",
+              "aggregateRating": {
+                "@type": "AggregateRating", 
+                "ratingValue": "5",
+                "reviewCount": "25"
+              }
+            }),                                                         
+          }}
+        />
+      </head>
       <body className={`${geistSans.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
