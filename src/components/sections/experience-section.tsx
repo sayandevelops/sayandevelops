@@ -1,4 +1,5 @@
 
+import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -37,13 +38,26 @@ export function ExperienceSection() {
                   <CardTitle className="text-xl mb-1 sm:mb-0">{exp.role}</CardTitle>
                   <Badge variant="outline" className="text-sm shrink-0 w-fit">{exp.duration}</Badge>
                 </div>
-                {exp.companyLink ? (
-                  <Link href={exp.companyLink} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline inline-flex items-center text-md font-semibold">
-                    {exp.company} <ExternalLink className="ml-1.5 h-4 w-4" />
-                  </Link>
-                ) : (
-                  <p className="text-md font-semibold text-muted-foreground">{exp.company}</p>
-                )}
+                <div className="flex items-center gap-3">
+                  {exp.companyLogo && (
+                    <div className="relative h-10 w-24 shrink-0"> {/* Adjust width and height as needed */}
+                      <Image
+                        src={exp.companyLogo}
+                        alt={`${exp.company} logo`}
+                        layout="fill"
+                        objectFit="contain"
+                        data-ai-hint={exp.dataAiHintLogo || 'company logo'}
+                      />
+                    </div>
+                  )}
+                  {exp.companyLink ? (
+                    <Link href={exp.companyLink} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline inline-flex items-center text-md font-semibold">
+                      {exp.company} <ExternalLink className="ml-1.5 h-4 w-4" />
+                    </Link>
+                  ) : (
+                    <p className="text-md font-semibold text-muted-foreground">{exp.company}</p>
+                  )}
+                </div>
               </CardHeader>
               <CardContent>
                 <CardDescription className="mb-3">{exp.description}</CardDescription>
@@ -60,5 +74,3 @@ export function ExperienceSection() {
     </section>
   );
 }
-
-    
