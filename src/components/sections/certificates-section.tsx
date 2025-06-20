@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { certificatesData, type CertificateEntry } from "@/lib/data";
-import { Award, Download, ExternalLink, ArrowRight } from "lucide-react";
+import { Award, ExternalLink, ArrowRight } from "lucide-react";
 
 const CERTIFICATES_ON_HOMEPAGE = 3;
 
@@ -51,13 +51,6 @@ export function CertificatesSection() {
                   <Button asChild variant="outline" size="sm">
                     <Link href={cert.certificateUrl} target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="mr-2 h-4 w-4" /> View
-                    </Link>
-                  </Button>
-                )}
-                {cert.downloadUrl && (
-                  <Button asChild variant="default" size="sm">
-                    <Link href={cert.downloadUrl} target="_blank" rel="noopener noreferrer" download>
-                      <Download className="mr-2 h-4 w-4" /> Download
                     </Link>
                   </Button>
                 )}
