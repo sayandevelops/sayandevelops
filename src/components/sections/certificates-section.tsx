@@ -4,12 +4,16 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { certificatesData, type CertificateEntry } from "@/lib/data";
-import { Award, Download, ExternalLink } from "lucide-react";
+import { Award, Download, ExternalLink, ArrowRight } from "lucide-react";
+
+const CERTIFICATES_ON_HOMEPAGE = 3;
 
 export function CertificatesSection() {
   if (!certificatesData || certificatesData.length === 0) {
     return null;
   }
+
+  const displayedCertificates = certificatesData.slice(0, CERTIFICATES_ON_HOMEPAGE);
 
   return (
     <section id="certificates" className="bg-muted/30 dark:bg-muted/10">
@@ -23,7 +27,7 @@ export function CertificatesSection() {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {certificatesData.map((cert: CertificateEntry) => (
+          {displayedCertificates.map((cert: CertificateEntry) => (
             <Card key={cert.id} className="professional-card flex flex-col overflow-hidden">
               <CardHeader>
                 <div className="aspect-[16/10] relative mb-4 rounded-md overflow-hidden">
@@ -61,9 +65,16 @@ export function CertificatesSection() {
             </Card>
           ))}
         </div>
+        {certificatesData.length > CERTIFICATES_ON_HOMEPAGE && (
+          <div className="mt-12 text-center">
+            <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
+              <Link href="/certificates">
+                Explore More Certificates <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
 }
-
-    
