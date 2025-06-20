@@ -4,12 +4,17 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { experienceData, type ExperienceEntry } from "@/lib/data";
-import { Briefcase, ExternalLink } from "lucide-react";
+import { Briefcase, ExternalLink, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+const EXPERIENCE_ON_HOMEPAGE = 2;
 
 export function ExperienceSection() {
   if (!experienceData || experienceData.length === 0) {
     return null;
   }
+
+  const displayedExperience = experienceData.slice(0, EXPERIENCE_ON_HOMEPAGE);
 
   return (
     <section id="experience" className="container">
@@ -23,10 +28,10 @@ export function ExperienceSection() {
       </div>
       <div className="space-y-8 relative">
         {/* Vertical line */}
-        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-border -translate-x-1/2 hidden md:block"></div>
+        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-border -translate-x-1/2 hidden md:block" style={{ height: displayedExperience.length > 1 ? `calc(100% - ${displayedExperience.length}rem)` : '0', top: displayedExperience.length > 1 ? '1rem' : '0' }}></div>
 
-        {experienceData.map((exp, index) => (
-          <div key={exp.id} className="flex md:items-center w-full">
+        {displayedExperience.map((exp, index) => (
+          <div key={exp.id} className="flex md:items-center w-full relative">
             {/* Dot on the timeline for larger screens */}
             <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               <div className="h-3 w-3 rounded-full bg-primary border-2 border-background"></div>
@@ -40,7 +45,7 @@ export function ExperienceSection() {
                 </div>
                 <div className="flex items-center gap-3">
                   {exp.companyLogo && (
-                    <div className="relative h-10 w-24 shrink-0"> {/* Adjust width and height as needed */}
+                    <div className="relative h-10 w-24 shrink-0">
                       <Image
                         src={exp.companyLogo}
                         alt={`${exp.company} logo`}
@@ -71,6 +76,15 @@ export function ExperienceSection() {
           </div>
         ))}
       </div>
+      {experienceData.length > EXPERIENCE_ON_HOMEPAGE && (
+        <div className="mt-12 text-center">
+          <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
+            <Link href="/experience">
+              Explore More Experience <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+        </div>
+      )}
     </section>
   );
 }
