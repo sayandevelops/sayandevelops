@@ -1,3 +1,4 @@
+
 export type Skill = {
   name: string;
   level: number; // Percentage 0-100
@@ -31,6 +32,29 @@ export type Review = {
   company?: string;
 };
 
+export type ExperienceEntry = {
+  id: string;
+  role: string;
+  company: string;
+  duration: string;
+  description: string;
+  techStack: string[];
+  companyLink?: string;
+  icon?: React.ComponentType<{ className?: string }>;
+};
+
+export type CertificateEntry = {
+  id: string;
+  title: string;
+  issuer: string;
+  issueDate: string;
+  thumbnailUrl: string;
+  dataAiHint?: string;
+  certificateUrl?: string;
+  downloadUrl?: string;
+  icon?: React.ComponentType<{ className?: string }>;
+};
+
 export const skillsData: Skill[] = [
   { name: "HTML5, CSS3, Tailwind, Responsive Design", level: 90 },
   { name: "JavaScript (ES6+), TypeScript, Media Queries", level: 85 },
@@ -43,8 +67,6 @@ export const skillsData: Skill[] = [
   { name: "AI Integration, Chatbots, API  SaaS Tools Development", level: 65 },
   { name: "Python, TensorFlow, Model Training, Fine-tuning AI Automation & Workflow Bots", level: 80 }
 ];
-
-
 
 export const servicesData: Service[] = [
   {
@@ -75,7 +97,6 @@ export const servicesData: Service[] = [
     title: "SEO Service Website",
     description: "Developed a modern, SEO-optimized website . Implemented server-side rendering (SSR), meta tags, and schema markup to enhance search engine visibility and performance."
   },
-
 ];
 
 export const projectsData: Project[] = [
@@ -87,9 +108,7 @@ export const projectsData: Project[] = [
     techStack: ["HTML", "Javascript" ,"React", "Firebase", "Tailwind CSS","Python", "Tensorflow" , "Responsive Design"],
     description: "FlavorAI is an AI-powered cooking assistant chatbot built with React and Next.js. It helps users find recipes, cooking tips, and ingredient suggestions using AI integration. Features include real-time chat, smooth GSAP animations, responsive UI, and Firebase-based user authentication and hosting.",
     liveLink: "https://flavor-ai-pied.vercel.app/",
-
   },
-
   {
     id: "proj2",
     title: "Affiliate - Business Website",
@@ -98,48 +117,43 @@ export const projectsData: Project[] = [
     techStack: ["HTML", "CSS", "JS", "Typescript", "Goolgle Form / HTML FORM" ,"Responsive Design",],
     description: "Developed a fully functional affiliate business website for a client within 1 month, using HTML, CSS, JavaScript, and TypeScript, integrated with Google/HTML forms for data collection.",
     liveLink: "https://www.mediatexpert.com/",
-
   },
-{
-  id: "proj3",
-  title: "Modern Developer Portfolio",
-  image: "/image3.jpeg",
-  dataAiHint: "personal website",
-  techStack: ["React.js", "Tailwind CSS", "Framer Motion", "Gsap", "Responsive Design" ,],
-  description: "A visually engaging and fully responsive portfolio website built with Next.js and Tailwind CSS. Includes smooth animations using Framer Motion, showcasing projects, skills, and contact information to highlight personal branding.",
-  liveLink: "#",
-},
-
-{
-  id: "proj4",
-  title: "Debugging & Error Fixing Tool",
-  image: "/image4.jpeg",
-  dataAiHint: "personal website",
-  techStack: ["React.js", "Redux", "Sass", "Jest", "ESLint"],
-  description: "A robust tool focused on identifying, fixing errors, and debugging web applications with customizable themes.",
-  liveLink: "#",
-},
-
-{
-  id: "proj5",
-  title: "UI/UX Design Showcase",
-  image: "/image5.jpeg",
-  dataAiHint: "UI/UX design expert",
-  techStack: ["Figma",  "User Research"],
-  description: "A comprehensive showcase of UI/UX design concepts, prototypes, and user-centered design solutions.",
-  liveLink: "#",
-},
-
-{
-  id: "proj6",
-  title: "SEO Optimization",
-  image: "/image6.png",
-  dataAiHint: "SEO optimization",
- techStack: ["Next.js", "Tailwind CSS", "Framer Motion", "Google Analytics", "Google Search Console", "Ahrefs", "SEMrush", "Yoast SEO", "Schema Markup"],
-  description: "A professional website optimized for search engines to improve visibility, ranking, and user engagement.",
-  liveLink: "#",
-},
-
+  {
+    id: "proj3",
+    title: "Modern Developer Portfolio",
+    image: "/image3.jpeg",
+    dataAiHint: "personal website",
+    techStack: ["React.js", "Tailwind CSS", "Framer Motion", "Gsap", "Responsive Design" ,],
+    description: "A visually engaging and fully responsive portfolio website built with Next.js and Tailwind CSS. Includes smooth animations using Framer Motion, showcasing projects, skills, and contact information to highlight personal branding.",
+    liveLink: "/#hero",
+  },
+  {
+    id: "proj4",
+    title: "Debugging & Error Fixing Tool",
+    image: "/image4.jpeg",
+    dataAiHint: "debugging tool",
+    techStack: ["React.js", "Redux", "Sass", "Jest", "ESLint"],
+    description: "A robust tool focused on identifying, fixing errors, and debugging web applications with customizable themes.",
+    liveLink: "/#hero",
+  },
+  {
+    id: "proj5",
+    title: "UI/UX Design Showcase",
+    image: "/image5.jpeg",
+    dataAiHint: "UI UX design",
+    techStack: ["Figma",  "User Research"],
+    description: "A comprehensive showcase of UI/UX design concepts, prototypes, and user-centered design solutions.",
+    liveLink: "/#hero",
+  },
+  {
+    id: "proj6",
+    title: "SEO Optimization",
+    image: "/image6.png",
+    dataAiHint: "SEO optimization",
+    techStack: ["Next.js", "Tailwind CSS", "Framer Motion", "Google Analytics", "Google Search Console", "Ahrefs", "SEMrush", "Yoast SEO", "Schema Markup"],
+    description: "A professional website optimized for search engines to improve visibility, ranking, and user engagement.",
+    liveLink: "/#hero",
+  },
 ];
 
 export const reviewsData: Review[] = [
@@ -171,3 +185,65 @@ export const reviewsData: Review[] = [
     company: "Mediatexpert",
   },
 ];
+
+export const experienceData: ExperienceEntry[] = [
+  {
+    id: "exp1",
+    role: "Full Stack Developer (Freelance)",
+    company: "Acme Innovations",
+    duration: "Jan 2023 - Present",
+    description: "Led the development of a new e-commerce platform, focusing on performance and scalability. Integrated various third-party APIs for payment processing and shipping. Mentored junior developers.",
+    techStack: ["Next.js", "TypeScript", "GraphQL", "PostgreSQL", "Docker", "AWS"],
+    companyLink: "#",
+  },
+  {
+    id: "exp2",
+    role: "Frontend Developer Intern",
+    company: "Digital Solutions Ltd.",
+    duration: "Jun 2022 - Dec 2022",
+    description: "Contributed to building responsive user interfaces for client projects. Participated in agile development cycles, code reviews, and collaborated with UI/UX designers.",
+    techStack: ["React", "JavaScript", "Sass", "Figma", "Jest"],
+    companyLink: "#",
+  },
+  {
+    id: "exp3",
+    role: "Web Development Tutor",
+    company: "Self-Employed",
+    duration: "Jan 2021 - May 2022",
+    description: "Provided one-on-one tutoring and group workshops on HTML, CSS, JavaScript, and React to aspiring web developers. Created custom learning materials and projects.",
+    techStack: ["HTML", "CSS", "JavaScript", "React", "Teaching"],
+  },
+];
+
+export const certificatesData: CertificateEntry[] = [
+  {
+    id: "cert1",
+    title: "Google Certified Professional Cloud Architect",
+    issuer: "Google Cloud",
+    issueDate: "Issued Mar 2023",
+    thumbnailUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "certificate tech",
+    certificateUrl: "#",
+  },
+  {
+    id: "cert2",
+    title: "Advanced JavaScript Ninja",
+    issuer: "Udemy",
+    issueDate: "Issued Nov 2022",
+    thumbnailUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "coding award",
+    certificateUrl: "#",
+    downloadUrl: "#",
+  },
+  {
+    id: "cert3",
+    title: "Responsive Web Design",
+    issuer: "freeCodeCamp",
+    issueDate: "Issued May 2022",
+    thumbnailUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "web design",
+    certificateUrl: "#",
+  },
+];
+
+    

@@ -1,3 +1,4 @@
+
 import Link from "next/link"
 import { Github, Linkedin, Youtube, Heart } from "lucide-react"
 
@@ -8,10 +9,13 @@ const socialLinks = [
 ]
 
 const quickLinks = [
-  { href: "#skills", label: "Skills" },
-  { href: "#services", label: "Services" },
-  { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#services", label: "Services" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#certificates", label: "Certificates" },
+  { href: "/#reviews", label: "Reviews" },
+  { href: "/#contact", label: "Contact" },
 ]
 
 export function Footer() {
@@ -67,3 +71,5 @@ export function Footer() {
     </footer>
   )
 }
+
+    

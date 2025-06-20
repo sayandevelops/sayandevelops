@@ -13,7 +13,9 @@ const navItems = [
   { href: "/#hero", label: "Home" },
   { href: "/#skills", label: "Skills" },
   { href: "/#services", label: "Services" },
+  { href: "/#experience", label: "Experience" },
   { href: "/#projects", label: "Projects" },
+  { href: "/#certificates", label: "Certificates" },
   { href: "/#reviews", label: "Reviews" },
   { href: "/#contact", label: "Contact" },
 ]
@@ -76,3 +78,5 @@ export function Header() {
     </header>
   )
 }
+
+    
