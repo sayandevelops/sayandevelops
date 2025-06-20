@@ -1,23 +1,23 @@
 
-import Image from "next/image"
-import Link from "next/link"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { projectsData, type Project } from "@/lib/data"
-import { Badge } from "@/components/ui/badge"
-import { ExternalLink, Github, ArrowRight } from "lucide-react"
+import Image from "next/image";
+import Link from "next/link";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { projectsData, type Project } from "@/lib/data";
+import { Badge } from "@/components/ui/badge";
+import { ExternalLink, Github } from "lucide-react";
 
-export function ProjectsSection() {
+export default function AllProjectsPage() {
   return (
-    <section id="projects" className="container">
+    <section id="all-projects" className="container py-16 md:py-24">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold tracking-tight">My Projects</h2>
+        <h1 className="text-4xl font-bold tracking-tight md:text-5xl">All Projects</h1>
         <p className="text-lg text-muted-foreground mt-2">
-          A selection of my recent work and personal projects.
+          Browse through a comprehensive list of my work and personal projects.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projectsData.slice(0, 3).map((project: Project) => ( // Display only first 3 projects on homepage
+        {projectsData.map((project: Project) => (
           <Card key={project.id} className="professional-card flex flex-col overflow-hidden">
             <CardHeader>
               <div className="aspect-[16/9] relative mb-4 rounded-md overflow-hidden">
@@ -27,7 +27,7 @@ export function ProjectsSection() {
                   layout="fill"
                   objectFit="cover"
                   className="transition-transform duration-300 hover:scale-105"
-                  data-ai-hint={project.dataAiHint}
+                  data-ai-hint={project.dataAiHint || 'project image'}
                 />
               </div>
               <CardTitle className="text-xl">{project.title}</CardTitle>
@@ -59,15 +59,6 @@ export function ProjectsSection() {
           </Card>
         ))}
       </div>
-      {projectsData.length > 3 && (
-        <div className="mt-12 text-center">
-          <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
-            <Link href="/projects">
-              Explore More Projects <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
-      )}
     </section>
-  )
+  );
 }
