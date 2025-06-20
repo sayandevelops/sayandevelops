@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link"
@@ -9,12 +10,12 @@ import { Menu } from "lucide-react"
 import { useState } from "react"
 
 const navItems = [
-  { href: "#hero", label: "Home" },
-  { href: "#skills", label: "Skills" },
-  { href: "#services", label: "Services" },
-  { href: "#projects", label: "Projects" },
-  { href: "#reviews", label: "Reviews" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#hero", label: "Home" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#services", label: "Services" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#reviews", label: "Reviews" },
+  { href: "/#contact", label: "Contact" },
 ]
 
 export function Header() {
@@ -23,7 +24,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        <Link href="#hero" className="flex items-center gap-2" aria-label="SayanDevelops Home">
+        <Link href="/#hero" className="flex items-center gap-2" aria-label="SayanDevelops Home">
           <Code2 className="h-7 w-7 text-primary" />
           <span className="text-xl font-bold tracking-tight">SayanDevelops</span>
         </Link>
@@ -51,7 +52,7 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[280px] sm:w-[320px]">
               <div className="p-6">
-                <Link href="#hero" className="flex items-center gap-2 mb-8" onClick={() => setMobileMenuOpen(false)}>
+                <Link href="/#hero" className="flex items-center gap-2 mb-8" onClick={() => setMobileMenuOpen(false)}>
                   <Code2 className="h-7 w-7 text-primary" />
                   <span className="text-xl font-bold tracking-tight">SayanDevelops</span>
                 </Link>
