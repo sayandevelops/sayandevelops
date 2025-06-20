@@ -1,8 +1,13 @@
+
 import Image from "next/image"
+import Link from "next/link"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { reviewsData, type Review } from "@/lib/data"
-import { Star, UserCircle2 } from "lucide-react"
+import { Star, UserCircle2, ArrowRight } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+
+const REVIEWS_ON_HOMEPAGE = 2;
 
 export function ReviewsSection() {
   return (
@@ -15,7 +20,7 @@ export function ReviewsSection() {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {reviewsData.map((review: Review) => (
+          {reviewsData.slice(0, REVIEWS_ON_HOMEPAGE).map((review: Review) => (
             <Card key={review.id} className="professional-card flex flex-col">
               <CardHeader className="flex flex-row items-center gap-4">
                 <Avatar className="h-14 w-14">
@@ -47,6 +52,15 @@ export function ReviewsSection() {
             </Card>
           ))}
         </div>
+        {reviewsData.length > REVIEWS_ON_HOMEPAGE && (
+          <div className="mt-12 text-center">
+            <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
+              <Link href="/reviews">
+                Explore More Reviews <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   )
