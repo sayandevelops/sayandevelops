@@ -214,7 +214,7 @@ export const experienceData: ExperienceEntry[] = [
     id: "exp3",
     role: "Web Development Tutor",
     company: "Self-Employed",
-    companyLogo: "https://placehold.co/100x40.png", 
+    companyLogo: "https://placehold.co/100x40.png",
     dataAiHintLogo: "freelance icon",
     duration: "Jan 2021 - May 2022",
     description: "Provided one-on-one tutoring and group workshops on HTML, CSS, JavaScript, and React to aspiring web developers. Created custom learning materials and projects.",
@@ -250,4 +250,14 @@ export const certificatesData: CertificateEntry[] = [
     dataAiHint: "web design",
     certificateUrl: "#",
   },
+  {
+    id: "cert4",
+    title: "Full-Stack Web Development with React",
+    issuer: "Coursera",
+    issueDate: "Issued Jan 2024",
+    thumbnailUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "development course",
+    certificateUrl: "#",
+  }
 ];
+
