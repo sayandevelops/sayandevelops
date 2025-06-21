@@ -9,13 +9,12 @@ import { getFirestore } from "firebase/firestore";
 // 4. Copy the firebaseConfig object here.
 
 const firebaseConfig = {
-  // THIS IS SAMPLE CONFIG. REPLACE WITH YOUR OWN.
-  apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  authDomain: "your-project-id.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project-id.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abc123def456"
+  apiKey: "AIzaSyA67-Fy4JXZcq0obnckBoOVuowvn3vykjc",
+  authDomain: "myauthproject-70650.firebaseapp.com",
+  projectId: "myauthproject-70650",
+  storageBucket: "myauthproject-70650.appspot.com",
+  messagingSenderId: "662773446818",
+  appId: "1:662773446818:web:006a8ff87790acd4f2fffb"
 };
 
 // Initialize Firebase
