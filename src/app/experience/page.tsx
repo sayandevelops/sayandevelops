@@ -1,12 +1,14 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { experienceData, type ExperienceEntry } from "@/lib/data";
+import { getExperienceEntries } from "@/lib/firestore";
+import type { ExperienceEntry } from "@/lib/data";
 import { ExternalLink, Briefcase } from "lucide-react";
 
-export default function AllExperiencePage() {
+export default async function AllExperiencePage() {
+  const experienceData = await getExperienceEntries();
+
   return (
     <section id="all-experience" className="container py-16 md:py-24">
       <div className="text-center mb-12">
@@ -54,7 +56,6 @@ export default function AllExperiencePage() {
                 ))}
               </div>
             </CardContent>
-            {/* CardFooter can be added here if needed, e.g., for links to specific projects within that role */}
           </Card>
         ))}
       </div>

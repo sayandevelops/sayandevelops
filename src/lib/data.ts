@@ -187,40 +187,13 @@ export const reviewsData: Review[] = [
   },
 ];
 
+// Experience data is now fetched from Firestore. This array is no longer used.
+// You can keep it here for reference or for a fallback, but the site will use the database.
+/*
 export const experienceData: ExperienceEntry[] = [
-  {
-    id: "exp1",
-    role: "Full Stack Developer (Freelance)",
-    company: "Acme Innovations",
-    companyLogo: "https://placehold.co/100x40.png",
-    dataAiHintLogo: "company logo",
-    duration: "Jan 2023 - Present",
-    description: "Led the development of a new e-commerce platform, focusing on performance and scalability. Integrated various third-party APIs for payment processing and shipping. Mentored junior developers.",
-    techStack: ["Next.js", "TypeScript", "GraphQL", "PostgreSQL", "Docker", "AWS"],
-    companyLink: "#",
-  },
-  {
-    id: "exp2",
-    role: "Frontend Developer Intern",
-    company: "Digital Solutions Ltd.",
-    companyLogo: "https://placehold.co/100x40.png",
-    dataAiHintLogo: "company logo",
-    duration: "Jun 2022 - Dec 2022",
-    description: "Contributed to building responsive user interfaces for client projects. Participated in agile development cycles, code reviews, and collaborated with UI/UX designers.",
-    techStack: ["React", "JavaScript", "Sass", "Figma", "Jest"],
-    companyLink: "#",
-  },
-  {
-    id: "exp3",
-    role: "Web Development Tutor",
-    company: "Self-Employed",
-    companyLogo: "https://placehold.co/100x40.png",
-    dataAiHintLogo: "freelance icon",
-    duration: "Jan 2021 - May 2022",
-    description: "Provided one-on-one tutoring and group workshops on HTML, CSS, JavaScript, and React to aspiring web developers. Created custom learning materials and projects.",
-    techStack: ["HTML", "CSS", "JavaScript", "React", "Teaching"],
-  },
+  ...
 ];
+*/
 
 export const certificatesData: CertificateEntry[] = [
   {
@@ -260,4 +233,3 @@ export const certificatesData: CertificateEntry[] = [
     certificateUrl: "#",
   }
 ];
-

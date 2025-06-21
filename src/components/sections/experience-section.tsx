@@ -1,20 +1,33 @@
-
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { experienceData, type ExperienceEntry } from "@/lib/data";
+import { getExperienceEntries } from "@/lib/firestore";
+import type { ExperienceEntry } from "@/lib/data";
 import { Briefcase, ExternalLink, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const EXPERIENCE_ON_HOMEPAGE = 2;
 
-export function ExperienceSection() {
-  if (!experienceData || experienceData.length === 0) {
-    return null;
+export async function ExperienceSection() {
+  const allExperience = await getExperienceEntries();
+
+  if (!allExperience || allExperience.length === 0) {
+    return (
+        <section id="experience" className="container">
+            <div className="text-center mb-12">
+                <h2 className="text-4xl font-bold tracking-tight inline-flex items-center">
+                    <Briefcase className="mr-3 h-10 w-10 text-primary" /> Experience
+                </h2>
+                <p className="text-lg text-muted-foreground mt-2">
+                    My professional journey and contributions will be displayed here soon.
+                </p>
+            </div>
+        </section>
+    );
   }
 
-  const displayedExperience = experienceData.slice(0, EXPERIENCE_ON_HOMEPAGE);
+  const displayedExperience = allExperience.slice(0, EXPERIENCE_ON_HOMEPAGE);
 
   return (
     <section id="experience" className="container">
@@ -27,12 +40,10 @@ export function ExperienceSection() {
         </p>
       </div>
       <div className="space-y-8 relative">
-        {/* Vertical line */}
         <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-border -translate-x-1/2 hidden md:block" style={{ height: displayedExperience.length > 1 ? `calc(100% - ${displayedExperience.length}rem)` : '0', top: displayedExperience.length > 1 ? '1rem' : '0' }}></div>
 
         {displayedExperience.map((exp, index) => (
           <div key={exp.id} className="flex md:items-center w-full relative">
-            {/* Dot on the timeline for larger screens */}
             <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               <div className="h-3 w-3 rounded-full bg-primary border-2 border-background"></div>
             </div>
@@ -76,7 +87,7 @@ export function ExperienceSection() {
           </div>
         ))}
       </div>
-      {experienceData.length > EXPERIENCE_ON_HOMEPAGE && (
+      {allExperience.length > EXPERIENCE_ON_HOMEPAGE && (
         <div className="mt-12 text-center">
           <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
             <Link href="/experience">

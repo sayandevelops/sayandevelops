@@ -66,10 +66,13 @@ export function Footer() {
           <p className="mt-1">
             © {new Date().getFullYear()} SayanDevelops. All rights reserved.
           </p>
+          <p className="mt-4">
+            <Link href="/admin/login" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+              Admin Login
+            </Link>
+          </p>
         </div>
       </div>
     </footer>
   )
 }
-
-    
