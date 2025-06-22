@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -27,6 +28,8 @@ import { addExperienceEntry, updateExperienceEntry } from '@/lib/firestore';
 import type { ExperienceEntry } from '@/lib/data';
 import { useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { uploadImage } from '@/app/actions/cloudinary';
 
 const experienceFormSchema = z.object({
   role: z.string().min(1, 'Role is required'),
@@ -34,7 +37,7 @@ const experienceFormSchema = z.object({
   duration: z.string().min(1, 'Duration is required'),
   description: z.string().min(1, 'Description is required'),
   companyLink: z.string().url().optional().or(z.literal('')),
-  companyLogo: z.string().url().optional().or(z.literal('')),
+  companyLogo: z.any().optional(),
   dataAiHintLogo: z.string().optional(),
   techStack: z.string().min(1, 'Tech stack is required'),
 });
@@ -57,13 +60,14 @@ export function ExperienceForm({ isOpen, onClose, experience }: ExperienceFormPr
       duration: '',
       description: '',
       companyLink: '',
-      companyLogo: '',
+      companyLogo: undefined,
       dataAiHintLogo: '',
       techStack: '',
     },
   });
 
-  const { formState: { isSubmitting }, reset } = form;
+  const { formState: { isSubmitting }, reset, watch } = form;
+  const currentLogo = watch('companyLogo');
 
   useEffect(() => {
     if (isOpen && experience) {
@@ -78,7 +82,7 @@ export function ExperienceForm({ isOpen, onClose, experience }: ExperienceFormPr
         duration: '',
         description: '',
         companyLink: '',
-        companyLogo: '',
+        companyLogo: undefined,
         dataAiHintLogo: '',
         techStack: '',
       });
@@ -87,14 +91,34 @@ export function ExperienceForm({ isOpen, onClose, experience }: ExperienceFormPr
 
   const onSubmit = async (data: ExperienceFormValues) => {
     try {
+      let logoUrl = experience?.companyLogo || '';
+
+      // Check if a new file was uploaded (it will be a FileList object)
+      if (data.companyLogo && typeof data.companyLogo === 'object' && data.companyLogo.length > 0) {
+        const file = data.companyLogo[0];
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const result = await uploadImage(formData);
+        if (result.success && result.url) {
+          logoUrl = result.url;
+        } else {
+          throw new Error(result.error || 'Image upload failed');
+        }
+      }
+
       const techStackArray = data.techStack.split(',').map(item => item.trim()).filter(Boolean);
-      const submissionData = { ...data, techStack: techStackArray };
+      const submissionData = { ...data, companyLogo: logoUrl, techStack: techStackArray };
+      
+      // Remove the file object from submission data if it exists
+      delete (submissionData as Partial<typeof submissionData>).companyLogo;
+
 
       if (experience) {
-        await updateExperienceEntry(experience.id, submissionData);
+        await updateExperienceEntry(experience.id, { ...submissionData, companyLogo: logoUrl });
         toast({ title: 'Success', description: 'Experience updated successfully.' });
       } else {
-        await addExperienceEntry(submissionData);
+        await addExperienceEntry({ ...submissionData, companyLogo: logoUrl });
         toast({ title: 'Success', description: 'Experience added successfully.' });
       }
       onClose();
@@ -102,7 +126,7 @@ export function ExperienceForm({ isOpen, onClose, experience }: ExperienceFormPr
       console.error('Failed to save experience:', error);
       toast({
         title: 'Error',
-        description: 'Failed to save experience entry.',
+        description: (error as Error).message || 'Failed to save experience entry.',
         variant: 'destructive',
       });
     }
@@ -178,7 +202,7 @@ export function ExperienceForm({ isOpen, onClose, experience }: ExperienceFormPr
               name="techStack"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tech Stack</FormLabel>
+                  <FormLabel>Tech Stack (comma-separated)</FormLabel>
                   <FormControl>
                     <Input placeholder="e.g., Next.js, TypeScript, PostgreSQL" {...field} />
                   </FormControl>
@@ -186,34 +210,38 @@ export function ExperienceForm({ isOpen, onClose, experience }: ExperienceFormPr
                 </FormItem>
               )}
             />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField
-                control={form.control}
-                name="companyLink"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Company Link (Optional)</FormLabel>
-                    <FormControl>
-                        <Input placeholder="https://example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
-                />
-                <FormField
+            <FormField
+              control={form.control}
+              name="companyLink"
+              render={({ field }) => (
+                  <FormItem>
+                  <FormLabel>Company Link (Optional)</FormLabel>
+                  <FormControl>
+                      <Input placeholder="https://example.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                  </FormItem>
+              )}
+            />
+             <FormField
                 control={form.control}
                 name="companyLogo"
-                render={({ field }) => (
+                render={({ field: { onChange, value, ...rest } }) => (
                     <FormItem>
-                    <FormLabel>Company Logo URL (Optional)</FormLabel>
+                    <FormLabel>Company Logo</FormLabel>
                     <FormControl>
-                        <Input placeholder="https://placehold.co/100x40.png" {...field} />
+                        <Input type="file" accept="image/*" onChange={(e) => onChange(e.target.files)} {...rest} />
                     </FormControl>
                     <FormMessage />
+                    {experience?.companyLogo && (!currentLogo || typeof currentLogo === 'string') && (
+                        <div className="mt-2">
+                        <p className="text-sm text-muted-foreground">Current logo:</p>
+                        <Image src={experience.companyLogo} alt="Current company logo" width={100} height={40} className="rounded-md border object-contain bg-white p-1" />
+                        </div>
+                    )}
                     </FormItem>
                 )}
-                />
-            </div>
+            />
             <FormField
               control={form.control}
               name="dataAiHintLogo"
@@ -221,7 +249,7 @@ export function ExperienceForm({ isOpen, onClose, experience }: ExperienceFormPr
                 <FormItem>
                   <FormLabel>Logo AI Hint (Optional)</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., company logo" {...field} />
+                    <Input placeholder="e.g., tech company logo" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

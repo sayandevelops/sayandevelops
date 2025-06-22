@@ -187,13 +187,33 @@ export const reviewsData: Review[] = [
   },
 ];
 
-// Experience data is now fetched from Firestore. This array is no longer used.
-// You can keep it here for reference or for a fallback, but the site will use the database.
-/*
-export const experienceData: ExperienceEntry[] = [
-  ...
+// This demo data will be used as a fallback if the Firestore 'experience' collection is empty.
+// It will be replaced once you add your own data via the admin panel.
+export const demoExperienceData: ExperienceEntry[] = [
+  {
+    id: 'demo1',
+    role: 'Full Stack Developer',
+    company: 'Innovate Inc.',
+    companyLogo: 'https://placehold.co/200x80.png',
+    dataAiHintLogo: 'company logo',
+    duration: 'Jan 2022 - Present',
+    description: 'Developed and maintained web applications using Next.js, TypeScript, and Node.js. Collaborated with cross-functional teams to deliver high-quality products.',
+    techStack: ['Next.js', 'TypeScript', 'Node.js', 'Firebase', 'Tailwind CSS'],
+    companyLink: '#',
+  },
+  {
+    id: 'demo2',
+    role: 'Frontend Developer',
+    company: 'Creative Solutions',
+    companyLogo: 'https://placehold.co/200x80.png',
+    dataAiHintLogo: 'company logo abstract',
+    duration: 'Jun 2020 - Dec 2021',
+    description: 'Built responsive and interactive user interfaces for client websites using React and modern CSS frameworks. Focused on creating pixel-perfect and accessible designs.',
+    techStack: ['React', 'JavaScript', 'Sass', 'Figma', 'Storybook'],
+    companyLink: '#',
+  }
 ];
-*/
+
 
 export const certificatesData: CertificateEntry[] = [
   {
