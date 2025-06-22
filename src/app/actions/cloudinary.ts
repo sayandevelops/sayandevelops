@@ -22,20 +22,26 @@ if (
   console.warn(
     'Cloudinary credentials are not set. Image uploads will fail. Please check your .env.local file.'
   );
+} else {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+    secure: true,
+  });
 }
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true,
-});
 
 export async function uploadImage(formData: FormData) {
   const file = formData.get('file') as File;
 
   if (!file || file.size === 0) {
     return { success: false, error: 'No file provided.' };
+  }
+
+  // Double-check config before upload attempt
+  if (!cloudinary.config().cloud_name) {
+    return { success: false, error: 'Cloudinary is not configured. Please check server logs for details.' };
   }
 
   try {
@@ -54,14 +60,12 @@ export async function uploadImage(formData: FormData) {
     } else {
       return { success: false, error: 'Cloudinary upload failed.' };
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Cloudinary Upload Error:', error);
     let errorMessage = 'An unknown error occurred during upload.';
-    if (error instanceof Error) {
+    // Handle Cloudinary's specific error object structure or a standard Error
+    if (error && error.message) {
       errorMessage = error.message;
-    } else if (error && typeof error === 'object' && 'message' in error) {
-      // Handle Cloudinary's specific error object structure
-      errorMessage = `Upload failed: ${error.message}`;
     }
     return { success: false, error: errorMessage };
   }
