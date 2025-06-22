@@ -7,12 +7,16 @@ import { v2 as cloudinary } from 'cloudinary';
 // Configure Cloudinary with your credentials.
 // 1. Create a Cloudinary account at https://cloudinary.com/
 // 2. Find your "Cloud Name", "API Key", and "API Secret" in your dashboard.
+//    - The "Cloud Name" is your unique account identifier, usually found at the top of your Cloudinary dashboard. It is NOT "Root".
+//    - The "API Key" and "API Secret" are also found in your dashboard, likely under a "Settings" or "API Keys" section.
 // 3. Add them to your .env.local file.
 //
 // .env.local
-// CLOUDINARY_CLOUD_NAME=your_cloud_name
+// CLOUDINARY_CLOUD_NAME=your_actual_cloud_name
 // CLOUDINARY_API_KEY=your_api_key
 // CLOUDINARY_API_SECRET=your_api_secret
+//
+// 4. IMPORTANT: Restart your development server after creating or changing this file.
 
 if (
   !process.env.CLOUDINARY_CLOUD_NAME ||
