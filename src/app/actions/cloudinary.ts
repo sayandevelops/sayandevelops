@@ -56,7 +56,13 @@ export async function uploadImage(formData: FormData) {
     }
   } catch (error) {
     console.error('Cloudinary Upload Error:', error);
-    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred during upload.';
+    let errorMessage = 'An unknown error occurred during upload.';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (error && typeof error === 'object' && 'message' in error) {
+      // Handle Cloudinary's specific error object structure
+      errorMessage = `Upload failed: ${error.message}`;
+    }
     return { success: false, error: errorMessage };
   }
 }

@@ -108,17 +108,20 @@ export function ExperienceForm({ isOpen, onClose, experience }: ExperienceFormPr
       }
 
       const techStackArray = data.techStack.split(',').map(item => item.trim()).filter(Boolean);
-      const submissionData = { ...data, companyLogo: logoUrl, techStack: techStackArray };
       
-      // Remove the file object from submission data if it exists
-      delete (submissionData as Partial<typeof submissionData>).companyLogo;
-
+      // Create a clean data object for Firestore, excluding the file input.
+      const { companyLogo, ...restOfData } = data;
+      const firestoreData = {
+        ...restOfData,
+        companyLogo: logoUrl, // The new URL or the existing one
+        techStack: techStackArray,
+      };
 
       if (experience) {
-        await updateExperienceEntry(experience.id, { ...submissionData, companyLogo: logoUrl });
+        await updateExperienceEntry(experience.id, firestoreData);
         toast({ title: 'Success', description: 'Experience updated successfully.' });
       } else {
-        await addExperienceEntry({ ...submissionData, companyLogo: logoUrl });
+        await addExperienceEntry(firestoreData);
         toast({ title: 'Success', description: 'Experience added successfully.' });
       }
       onClose();
