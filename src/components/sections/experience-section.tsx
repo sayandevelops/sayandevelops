@@ -3,28 +3,19 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getExperienceEntries } from "@/lib/firestore";
-import type { ExperienceEntry } from "@/lib/data";
+import { type ExperienceEntry, demoExperienceData } from "@/lib/data";
 import { Briefcase, ExternalLink, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const EXPERIENCE_ON_HOMEPAGE = 2;
 
 export async function ExperienceSection() {
-  const allExperience = await getExperienceEntries();
+  let allExperience = await getExperienceEntries();
+  const isFirestoreEmpty = !allExperience || allExperience.length === 0;
 
-  if (!allExperience || allExperience.length === 0) {
-    return (
-        <section id="experience" className="container">
-            <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold tracking-tight inline-flex items-center">
-                    <Briefcase className="mr-3 h-10 w-10 text-primary" /> Experience
-                </h2>
-                <p className="text-lg text-muted-foreground mt-2">
-                    My professional journey and contributions will be displayed here soon.
-                </p>
-            </div>
-        </section>
-    );
+  if (isFirestoreEmpty) {
+    // If firestore is empty, use demo data for the homepage section.
+    allExperience = demoExperienceData;
   }
 
   const displayedExperience = allExperience.slice(0, EXPERIENCE_ON_HOMEPAGE);
@@ -37,6 +28,9 @@ export async function ExperienceSection() {
         </h2>
         <p className="text-lg text-muted-foreground mt-2">
           My professional journey and contributions.
+          {isFirestoreEmpty && (
+            <span className="block text-sm mt-1">(This is demo content. Add your own through the admin panel.)</span>
+          )}
         </p>
       </div>
       <div className="space-y-8 relative">
@@ -87,7 +81,7 @@ export async function ExperienceSection() {
           </div>
         ))}
       </div>
-      {allExperience.length > EXPERIENCE_ON_HOMEPAGE && (
+      {allExperience.length > EXPERIENCE_ON_HOMEPAGE && !isFirestoreEmpty && (
         <div className="mt-12 text-center">
           <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
             <Link href="/experience">

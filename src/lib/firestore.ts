@@ -19,11 +19,8 @@ export const getExperienceEntries = async (): Promise<ExperienceEntry[]> => {
     const q = query(experienceCollectionRef, orderBy('duration', 'desc'));
     const snapshot = await getDocs(q);
     
-    // If Firestore is empty, return demo data as a placeholder.
-    // This ensures the page has content initially. Once you add your own
-    // experience entries via the admin panel, this data will be replaced by live data.
     if (snapshot.empty) {
-      return demoExperienceData;
+      return []; // Return empty array if no documents found. The frontend will handle showing demo data.
     }
     
     const entries = snapshot.docs.map(doc => ({
@@ -34,8 +31,8 @@ export const getExperienceEntries = async (): Promise<ExperienceEntry[]> => {
     return entries;
   } catch (error) {
     console.error("Error fetching experience entries from Firestore:", error);
-    // Fallback to demo data on error
-    return demoExperienceData;
+    // Fallback to an empty array on error to prevent site crashes.
+    return [];
   }
 };
 
