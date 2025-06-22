@@ -38,6 +38,9 @@ export async function uploadImage(formData: FormData) {
   if (!file || file.size === 0) {
     return { success: false, error: 'No file provided.' };
   }
+  
+  console.log('Attempting to upload image. Cloudinary configured:', !!cloudinary.config().cloud_name);
+
 
   // Double-check config before upload attempt
   if (!cloudinary.config().cloud_name) {
