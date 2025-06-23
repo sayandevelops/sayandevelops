@@ -3,12 +3,13 @@
 
 import { db } from './firebase';
 import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, orderBy, query } from 'firebase/firestore';
-import type { ExperienceEntry, Project, CertificateEntry } from './data';
-import { demoExperienceData, demoProjectData, demoCertificatesData } from './data';
+import type { ExperienceEntry, Project, CertificateEntry, Review } from './data';
+import { demoExperienceData, demoProjectData, demoCertificatesData, demoReviewsData } from './data';
 
 const experienceCollectionRef = collection(db, 'experience');
 const projectsCollectionRef = collection(db, 'projects');
 const certificatesCollectionRef = collection(db, 'certificates');
+const reviewsCollectionRef = collection(db, 'reviews');
 
 // --- EXPERIENCE ---
 
@@ -140,5 +141,49 @@ export const addCertificateEntry = async (data: Omit<CertificateEntry, 'id'>) =>
 
 export const deleteCertificateEntry = async (id: string) => {
   const entryDoc = doc(db, 'certificates', id);
+  await deleteDoc(entryDoc);
+}
+
+// --- REVIEWS ---
+
+export const getReviewEntries = async (): Promise<Review[]> => {
+  try {
+    const q = query(reviewsCollectionRef, orderBy('name', 'asc'));
+    let snapshot = await getDocs(q);
+    
+    if (snapshot.empty) {
+      console.log("Reviews collection is empty. Seeding with demo data...");
+      const seedPromises = demoReviewsData.map(review => {
+          const { id, ...data } = review;
+          return addDoc(reviewsCollectionRef, data);
+      });
+      await Promise.all(seedPromises);
+      console.log("Reviews demo data seeded successfully.");
+      snapshot = await getDocs(q);
+    }
+    
+    const entries = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as Review[];
+    
+    return entries;
+  } catch (error) {
+    console.error("Error fetching or seeding review entries from Firestore:", error);
+    return [];
+  }
+};
+
+export const updateReviewEntry = async (id: string, data: Partial<Omit<Review, 'id'>>) => {
+  const entryDoc = doc(db, 'reviews', id);
+  await updateDoc(entryDoc, data);
+};
+
+export const addReviewEntry = async (data: Omit<Review, 'id'>) => {
+  await addDoc(reviewsCollectionRef, data);
+}
+
+export const deleteReviewEntry = async (id: string) => {
+  const entryDoc = doc(db, 'reviews', id);
   await deleteDoc(entryDoc);
 }

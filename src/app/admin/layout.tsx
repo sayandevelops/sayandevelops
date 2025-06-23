@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/lib/firebase';
-import { Briefcase, LayoutDashboard, LogOut, Loader2, Lightbulb, Award } from 'lucide-react';
+import { Briefcase, LayoutDashboard, LogOut, Loader2, Lightbulb, Award, Star } from 'lucide-react';
 import { Toaster } from '@/components/ui/toaster';
 
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
@@ -61,6 +61,11 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
                     <li>
                         <Button variant={pathname === '/admin/certificates' ? 'secondary' : 'ghost'} className="w-full justify-start" asChild>
                             <Link href="/admin/certificates"><Award className="mr-2 h-4 w-4" /> Certificates</Link>
+                        </Button>
+                    </li>
+                    <li>
+                        <Button variant={pathname === '/admin/reviews' ? 'secondary' : 'ghost'} className="w-full justify-start" asChild>
+                            <Link href="/admin/reviews"><Star className="mr-2 h-4 w-4" /> Reviews</Link>
                         </Button>
                     </li>
                 </ul>

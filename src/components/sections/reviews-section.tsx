@@ -2,14 +2,22 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { reviewsData, type Review } from "@/lib/data"
+import { getReviewEntries } from "@/lib/firestore";
+import type { Review } from "@/lib/data"
 import { Star, UserCircle2, ArrowRight } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 
 const REVIEWS_ON_HOMEPAGE = 2;
 
-export function ReviewsSection() {
+export async function ReviewsSection() {
+  const allReviews = await getReviewEntries();
+  const displayedReviews = allReviews.slice(0, REVIEWS_ON_HOMEPAGE);
+
+  if (allReviews.length === 0) {
+    return null; // Don't render the section if there are no reviews
+  }
+
   return (
     <section id="reviews" className="bg-muted/30 dark:bg-muted/10">
       <div className="container">
@@ -19,8 +27,8 @@ export function ReviewsSection() {
             What others say about my work.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {reviewsData.slice(0, REVIEWS_ON_HOMEPAGE).map((review: Review) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          {displayedReviews.map((review: Review) => (
             <Card key={review.id} className="professional-card flex flex-col">
               <CardHeader className="flex flex-row items-center gap-4">
                 <Avatar className="h-14 w-14">
@@ -52,7 +60,7 @@ export function ReviewsSection() {
             </Card>
           ))}
         </div>
-        {reviewsData.length > REVIEWS_ON_HOMEPAGE && (
+        {allReviews.length > REVIEWS_ON_HOMEPAGE && (
           <div className="mt-12 text-center">
             <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
               <Link href="/reviews">

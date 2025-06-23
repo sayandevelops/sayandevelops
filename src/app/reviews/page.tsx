@@ -1,11 +1,14 @@
 
 import Image from "next/image";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { reviewsData, type Review } from "@/lib/data";
+import { getReviewEntries } from "@/lib/firestore";
+import type { Review } from "@/lib/data";
 import { Star, UserCircle2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export default function AllReviewsPage() {
+export default async function AllReviewsPage() {
+  const reviewsData = await getReviewEntries();
+
   return (
     <section id="all-reviews" className="container py-16 md:py-24">
       <div className="text-center mb-12">

@@ -130,11 +130,11 @@ export const demoProjectData: Project[] = [
   },
 ];
 
-export const reviewsData: Review[] = [
+export const demoReviewsData: Review[] = [
   {
     id: "rev1",
     name: "RX",
-    avatar: "https://i.pravatar.cc/100?img=3",
+    avatar: "https://placehold.co/100x100.png",
     dataAiHint: "person portrait",
     rating: 5,
     text: "Sayan delivered an exceptional product on time and with great communication. Highly recommended!",
@@ -143,7 +143,7 @@ export const reviewsData: Review[] = [
   {
     id: "rev2",
     name: "John",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    avatar: "https://placehold.co/100x100.png",
     dataAiHint: "professional headshot",
     rating: 4,
     text: "Great to work with, very knowledgeable and brought our vision to life. Some minor delays but overall excellent.",
@@ -152,7 +152,7 @@ export const reviewsData: Review[] = [
   {
     id: "rev3",
     name: "Ratnakar Halder ",
-    avatar: "https://i.pravatar.cc/100?img=12",
+    avatar: "https://placehold.co/100x100.png",
     dataAiHint: "business person",
     rating: 5,
     text: "The UI/UX design Sayan provided was top-notch and significantly improved our user engagement.",
