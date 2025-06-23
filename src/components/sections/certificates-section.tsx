@@ -3,17 +3,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { certificatesData, type CertificateEntry } from "@/lib/data";
+import { getCertificateEntries } from "@/lib/firestore";
+import type { CertificateEntry } from "@/lib/data";
 import { Award, ExternalLink, ArrowRight } from "lucide-react";
 
 const CERTIFICATES_ON_HOMEPAGE = 3;
 
-export function CertificatesSection() {
-  if (!certificatesData || certificatesData.length === 0) {
+export async function CertificatesSection() {
+  const allCertificates = await getCertificateEntries();
+
+  if (!allCertificates || allCertificates.length === 0) {
     return null;
   }
 
-  const displayedCertificates = certificatesData.slice(0, CERTIFICATES_ON_HOMEPAGE);
+  const displayedCertificates = allCertificates.slice(0, CERTIFICATES_ON_HOMEPAGE);
 
   return (
     <section id="certificates" className="bg-muted/30 dark:bg-muted/10">
@@ -58,7 +61,7 @@ export function CertificatesSection() {
             </Card>
           ))}
         </div>
-        {certificatesData.length > CERTIFICATES_ON_HOMEPAGE && (
+        {allCertificates.length > CERTIFICATES_ON_HOMEPAGE && (
           <div className="mt-12 text-center">
             <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
               <Link href="/certificates">

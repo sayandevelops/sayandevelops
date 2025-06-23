@@ -186,7 +186,7 @@ export const demoExperienceData: ExperienceEntry[] = [
 ];
 
 
-export const certificatesData: CertificateEntry[] = [
+export const demoCertificatesData: CertificateEntry[] = [
   {
     id: "cert1",
     title: "Google Certified Professional Cloud Architect",

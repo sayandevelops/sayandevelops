@@ -3,10 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { certificatesData, type CertificateEntry } from "@/lib/data";
+import { getCertificateEntries } from "@/lib/firestore";
+import type { CertificateEntry } from "@/lib/data";
 import { Award, ExternalLink } from "lucide-react";
 
-export default function AllCertificatesPage() {
+export default async function AllCertificatesPage() {
+  const certificatesData = await getCertificateEntries();
+
   return (
     <section id="all-certificates" className="container py-16 md:py-24">
       <div className="text-center mb-12">
