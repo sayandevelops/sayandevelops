@@ -3,21 +3,36 @@ import Image from "next/image"
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { projectsData, type Project } from "@/lib/data"
+import { getProjectEntries } from "@/lib/firestore";
+import { type Project, demoProjectData } from "@/lib/data"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Github, ArrowRight } from "lucide-react"
 
-export function ProjectsSection() {
+const PROJECTS_ON_HOMEPAGE = 3;
+
+export async function ProjectsSection() {
+  let allProjects = await getProjectEntries();
+  const isFirestoreEmpty = !allProjects || allProjects.length === 0;
+
+  if (isFirestoreEmpty) {
+    allProjects = demoProjectData;
+  }
+  
+  const displayedProjects = allProjects.slice(0, PROJECTS_ON_HOMEPAGE);
+
   return (
     <section id="projects" className="container">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold tracking-tight">My Projects</h2>
         <p className="text-lg text-muted-foreground mt-2">
           A selection of my recent work and personal projects.
+           {isFirestoreEmpty && (
+            <span className="block text-sm mt-1">(This is demo content. Add your own through the admin panel.)</span>
+          )}
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projectsData.slice(0, 3).map((project: Project) => ( // Display only first 3 projects on homepage
+        {displayedProjects.map((project: Project) => (
           <Card key={project.id} className="professional-card flex flex-col overflow-hidden">
             <CardHeader>
               <div className="aspect-[16/9] relative mb-4 rounded-md overflow-hidden">
@@ -59,7 +74,7 @@ export function ProjectsSection() {
           </Card>
         ))}
       </div>
-      {projectsData.length > 3 && (
+      {allProjects.length > PROJECTS_ON_HOMEPAGE && !isFirestoreEmpty && (
         <div className="mt-12 text-center">
           <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
             <Link href="/projects">

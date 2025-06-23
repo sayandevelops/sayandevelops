@@ -3,24 +3,20 @@
 
 import { db } from './firebase';
 import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, orderBy, query } from 'firebase/firestore';
-import type { ExperienceEntry } from './data';
-import { demoExperienceData } from './data';
+import type { ExperienceEntry, Project } from './data';
 
 const experienceCollectionRef = collection(db, 'experience');
+const projectsCollectionRef = collection(db, 'projects');
 
-// NOTE: For this to work, you need to manually add your experience data to a "experience" collection in Firestore.
-// The structure of each document should match the ExperienceEntry type.
-// It's recommended to add a 'startDate' field (e.g., as a Firestore Timestamp or YYYY-MM-DD string) to sort your experiences correctly.
+// --- EXPERIENCE ---
 
 export const getExperienceEntries = async (): Promise<ExperienceEntry[]> => {
   try {
-    // Example of ordering by a 'duration' field in descending order.
-    // You would need to add this field to your Firestore documents.
     const q = query(experienceCollectionRef, orderBy('duration', 'desc'));
     const snapshot = await getDocs(q);
     
     if (snapshot.empty) {
-      return []; // Return empty array if no documents found. The frontend will handle showing demo data.
+      return [];
     }
     
     const entries = snapshot.docs.map(doc => ({
@@ -31,7 +27,6 @@ export const getExperienceEntries = async (): Promise<ExperienceEntry[]> => {
     return entries;
   } catch (error) {
     console.error("Error fetching experience entries from Firestore:", error);
-    // Fallback to an empty array on error to prevent site crashes.
     return [];
   }
 };
@@ -47,5 +42,43 @@ export const addExperienceEntry = async (data: Omit<ExperienceEntry, 'id'>) => {
 
 export const deleteExperienceEntry = async (id: string) => {
   const entryDoc = doc(db, 'experience', id);
+  await deleteDoc(entryDoc);
+}
+
+
+// --- PROJECTS ---
+
+export const getProjectEntries = async (): Promise<Project[]> => {
+  try {
+    const q = query(projectsCollectionRef, orderBy('title', 'asc'));
+    const snapshot = await getDocs(q);
+    
+    if (snapshot.empty) {
+      return [];
+    }
+    
+    const entries = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as Project[];
+    
+    return entries;
+  } catch (error) {
+    console.error("Error fetching project entries from Firestore:", error);
+    return [];
+  }
+};
+
+export const updateProjectEntry = async (id: string, data: Partial<Omit<Project, 'id'>>) => {
+  const entryDoc = doc(db, 'projects', id);
+  await updateDoc(entryDoc, data);
+};
+
+export const addProjectEntry = async (data: Omit<Project, 'id'>) => {
+  await addDoc(projectsCollectionRef, data);
+}
+
+export const deleteProjectEntry = async (id: string) => {
+  const entryDoc = doc(db, 'projects', id);
   await deleteDoc(entryDoc);
 }

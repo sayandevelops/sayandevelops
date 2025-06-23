@@ -14,10 +14,10 @@ export type Service = {
 export type Project = {
   id: string;
   title: string;
+  description: string;
+  techStack: string[];
   image: string;
   dataAiHint?: string;
-  techStack: string[];
-  description: string;
   liveLink?: string;
   githubLink?: string;
 };
@@ -100,7 +100,7 @@ export const servicesData: Service[] = [
   },
 ];
 
-export const projectsData: Project[] = [
+export const demoProjectData: Project[] = [
   {
     id: "proj1",
     title: "FlavorAI",
@@ -126,33 +126,6 @@ export const projectsData: Project[] = [
     dataAiHint: "personal website",
     techStack: ["React.js", "Tailwind CSS", "Framer Motion", "Gsap", "Responsive Design" ,],
     description: "A visually engaging and fully responsive portfolio website built with Next.js and Tailwind CSS. Includes smooth animations using Framer Motion, showcasing projects, skills, and contact information to highlight personal branding.",
-    liveLink: "/#hero",
-  },
-  {
-    id: "proj4",
-    title: "Debugging & Error Fixing Tool",
-    image: "/image4.jpeg",
-    dataAiHint: "debugging tool",
-    techStack: ["React.js", "Redux", "Sass", "Jest", "ESLint"],
-    description: "A robust tool focused on identifying, fixing errors, and debugging web applications with customizable themes.",
-    liveLink: "/#hero",
-  },
-  {
-    id: "proj5",
-    title: "UI/UX Design Showcase",
-    image: "/image5.jpeg",
-    dataAiHint: "UI UX design",
-    techStack: ["Figma",  "User Research"],
-    description: "A comprehensive showcase of UI/UX design concepts, prototypes, and user-centered design solutions.",
-    liveLink: "/#hero",
-  },
-  {
-    id: "proj6",
-    title: "SEO Optimization",
-    image: "/image6.png",
-    dataAiHint: "SEO optimization",
-    techStack: ["Next.js", "Tailwind CSS", "Framer Motion", "Google Analytics", "Google Search Console", "Ahrefs", "SEMrush", "Yoast SEO", "Schema Markup"],
-    description: "A professional website optimized for search engines to improve visibility, ranking, and user engagement.",
     liveLink: "/#hero",
   },
 ];
@@ -187,8 +160,6 @@ export const reviewsData: Review[] = [
   },
 ];
 
-// This demo data will be used as a fallback if the Firestore 'experience' collection is empty.
-// It will be replaced once you add your own data via the admin panel.
 export const demoExperienceData: ExperienceEntry[] = [
   {
     id: 'demo1',

@@ -3,11 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { projectsData, type Project } from "@/lib/data";
+import { getProjectEntries } from "@/lib/firestore";
+import type { Project } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 
-export default function AllProjectsPage() {
+export default async function AllProjectsPage() {
+  const projectsData = await getProjectEntries();
+
   return (
     <section id="all-projects" className="container py-16 md:py-24">
       <div className="text-center mb-12">

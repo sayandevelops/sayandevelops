@@ -1,3 +1,4 @@
+
 'use client';
 import { AuthProvider, useAuth } from '@/hooks/use-auth';
 import { useRouter, usePathname } from 'next/navigation';
@@ -5,7 +6,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/lib/firebase';
-import { Briefcase, LayoutDashboard, LogOut, Loader2 } from 'lucide-react';
+import { Briefcase, LayoutDashboard, LogOut, Loader2, Lightbulb } from 'lucide-react';
 import { Toaster } from '@/components/ui/toaster';
 
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
@@ -50,6 +51,11 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
                     <li>
                         <Button variant={pathname === '/admin/experience' ? 'secondary' : 'ghost'} className="w-full justify-start" asChild>
                             <Link href="/admin/experience"><Briefcase className="mr-2 h-4 w-4" /> Experience</Link>
+                        </Button>
+                    </li>
+                     <li>
+                        <Button variant={pathname === '/admin/projects' ? 'secondary' : 'ghost'} className="w-full justify-start" asChild>
+                            <Link href="/admin/projects"><Lightbulb className="mr-2 h-4 w-4" /> Projects</Link>
                         </Button>
                     </li>
                 </ul>
