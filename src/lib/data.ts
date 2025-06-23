@@ -104,7 +104,7 @@ export const demoProjectData: Project[] = [
   {
     id: "proj1",
     title: "FlavorAI",
-    image: "/FlavorAI.png",
+    image: "https://placehold.co/600x400.png",
     dataAiHint: "AI Cooking Assistant",
     techStack: ["HTML", "Javascript" ,"React", "Firebase", "Tailwind CSS","Python", "Tensorflow" , "Responsive Design"],
     description: "FlavorAI is an AI-powered cooking assistant chatbot built with React and Next.js. It helps users find recipes, cooking tips, and ingredient suggestions using AI integration. Features include real-time chat, smooth GSAP animations, responsive UI, and Firebase-based user authentication and hosting.",
@@ -113,7 +113,7 @@ export const demoProjectData: Project[] = [
   {
     id: "proj2",
     title: "Affiliate - Business Website",
-    image: "/image2.jpeg",
+    image: "https://placehold.co/600x400.png",
     dataAiHint: "Affiliate Website",
     techStack: ["HTML", "CSS", "JS", "Typescript", "Goolgle Form / HTML FORM" ,"Responsive Design",],
     description: "Developed a fully functional affiliate business website for a client within 1 month, using HTML, CSS, JavaScript, and TypeScript, integrated with Google/HTML forms for data collection.",
@@ -122,7 +122,7 @@ export const demoProjectData: Project[] = [
   {
     id: "proj3",
     title: "Modern Developer Portfolio",
-    image: "/image3.jpeg",
+    image: "https://placehold.co/600x400.png",
     dataAiHint: "personal website",
     techStack: ["React.js", "Tailwind CSS", "Framer Motion", "Gsap", "Responsive Design" ,],
     description: "A visually engaging and fully responsive portfolio website built with Next.js and Tailwind CSS. Includes smooth animations using Framer Motion, showcasing projects, skills, and contact information to highlight personal branding.",
