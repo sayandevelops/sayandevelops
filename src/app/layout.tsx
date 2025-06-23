@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from "@/components/ui/toaster";
+import { getReviewEntries } from '@/lib/firestore';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -85,14 +86,47 @@ export const metadata: Metadata = {
   category: 'technology',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const reviews = await getReviewEntries();
+  const ratingCount = reviews.length;
+  const averageRating = ratingCount > 0
+    ? (reviews.reduce((acc, review) => acc + review.rating, 0) / ratingCount).toFixed(2)
+    : '5';
+
+  const aggregateRatingJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sayan Mondal",
+    "url": "https://sayandevelops.vercel.app/",
+    "sameAs": [
+      "https://github.com/sayandevelops",
+      "https://www.linkedin.com/in/sayandevelops/",
+      "https://youtube.com/@hustlewithsayan?si=Q_WmnhAiqcxMO-g8"
+    ],
+    "jobTitle": "Full Stack Developer",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": averageRating,
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": ratingCount
+    }
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
-
+      <head>
+        {ratingCount > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRatingJsonLd) }}
+          />
+        )}
+      </head>
       <body className={`${geistSans.variable} antialiased`} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
