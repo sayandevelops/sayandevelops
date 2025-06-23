@@ -131,7 +131,13 @@ export default function ManageProjectsPage() {
                     </div>
                 </div>
                  <div className="relative aspect-video w-full mt-2 rounded-md overflow-hidden border">
-                    <Image src={proj.image} alt={proj.title} layout="fill" objectFit="cover" data-ai-hint={proj.dataAiHint || 'project image'} />
+                    {proj.image ? (
+                        <Image src={proj.image} alt={proj.title} layout="fill" objectFit="cover" data-ai-hint={proj.dataAiHint || 'project image'} />
+                    ) : (
+                        <div className="w-full h-full bg-muted flex items-center justify-center">
+                            <span className="text-xs text-muted-foreground">No Image</span>
+                        </div>
+                    )}
                  </div>
             </CardHeader>
             <CardContent className="flex-grow">
