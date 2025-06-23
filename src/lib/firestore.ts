@@ -4,6 +4,7 @@
 import { db } from './firebase';
 import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, orderBy, query } from 'firebase/firestore';
 import type { ExperienceEntry, Project } from './data';
+import { demoExperienceData, demoProjectData } from './data';
 
 const experienceCollectionRef = collection(db, 'experience');
 const projectsCollectionRef = collection(db, 'projects');
@@ -13,12 +14,19 @@ const projectsCollectionRef = collection(db, 'projects');
 export const getExperienceEntries = async (): Promise<ExperienceEntry[]> => {
   try {
     const q = query(experienceCollectionRef, orderBy('duration', 'desc'));
-    const snapshot = await getDocs(q);
-    
+    let snapshot = await getDocs(q);
+
     if (snapshot.empty) {
-      return [];
+      console.log("Experience collection is empty. Seeding with demo data...");
+      const seedPromises = demoExperienceData.map(exp => {
+          const { id, ...data } = exp;
+          return addDoc(experienceCollectionRef, data);
+      });
+      await Promise.all(seedPromises);
+      console.log("Experience demo data seeded successfully.");
+      snapshot = await getDocs(q);
     }
-    
+
     const entries = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data(),
@@ -26,7 +34,7 @@ export const getExperienceEntries = async (): Promise<ExperienceEntry[]> => {
     
     return entries;
   } catch (error) {
-    console.error("Error fetching experience entries from Firestore:", error);
+    console.error("Error fetching or seeding experience entries from Firestore:", error);
     return [];
   }
 };
@@ -51,10 +59,17 @@ export const deleteExperienceEntry = async (id: string) => {
 export const getProjectEntries = async (): Promise<Project[]> => {
   try {
     const q = query(projectsCollectionRef, orderBy('title', 'asc'));
-    const snapshot = await getDocs(q);
+    let snapshot = await getDocs(q);
     
     if (snapshot.empty) {
-      return [];
+      console.log("Projects collection is empty. Seeding with demo data...");
+      const seedPromises = demoProjectData.map(project => {
+          const { id, ...data } = project;
+          return addDoc(projectsCollectionRef, data);
+      });
+      await Promise.all(seedPromises);
+      console.log("Projects demo data seeded successfully.");
+      snapshot = await getDocs(q);
     }
     
     const entries = snapshot.docs.map(doc => ({
@@ -64,7 +79,7 @@ export const getProjectEntries = async (): Promise<Project[]> => {
     
     return entries;
   } catch (error) {
-    console.error("Error fetching project entries from Firestore:", error);
+    console.error("Error fetching or seeding project entries from Firestore:", error);
     return [];
   }
 };
