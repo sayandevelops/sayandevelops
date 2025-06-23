@@ -2,12 +2,12 @@
 "use client"
 
 import Link from "next/link"
-import { Code2 } from "lucide-react"
+import { Code2, LogIn, Menu } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu } from "lucide-react"
 import { useState } from "react"
+import { Separator } from "@/components/ui/separator"
 
 const navItems = [
   { href: "/#hero", label: "Home" },
@@ -44,6 +44,9 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <Button asChild variant="ghost" className="hidden md:inline-flex">
+             <Link href="/admin/login">Admin Login</Link>
+          </Button>
           <ThemeToggle />
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
@@ -53,12 +56,12 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[280px] sm:w-[320px]">
-              <div className="p-6">
+              <div className="p-6 flex flex-col h-full">
                 <Link href="/#hero" className="flex items-center gap-2 mb-8" onClick={() => setMobileMenuOpen(false)}>
                   <Code2 className="h-7 w-7 text-primary" />
                   <span className="text-xl font-bold tracking-tight">SayanDevelops</span>
                 </Link>
-                <nav className="flex flex-col gap-6">
+                <nav className="flex flex-col gap-6 flex-grow">
                   {navItems.map((item) => (
                     <Link
                       key={item.label}
@@ -70,6 +73,15 @@ export function Header() {
                     </Link>
                   ))}
                 </nav>
+                 <Separator className="my-4" />
+                 <Link
+                    href="/admin/login"
+                    className="flex items-center text-lg font-medium transition-colors hover:text-primary"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <LogIn className="mr-2 h-5 w-5" />
+                    Admin Login
+                  </Link>
               </div>
             </SheetContent>
           </Sheet>
@@ -78,5 +90,3 @@ export function Header() {
     </header>
   )
 }
-
-    
