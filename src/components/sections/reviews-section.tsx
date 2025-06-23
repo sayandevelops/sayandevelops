@@ -7,6 +7,7 @@ import type { Review } from "@/lib/data"
 import { Star, UserCircle2, ArrowRight } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { LeaveReviewButton } from "@/components/leave-review-button";
 
 const REVIEWS_ON_HOMEPAGE = 2;
 
@@ -15,7 +16,21 @@ export async function ReviewsSection() {
   const displayedReviews = allReviews.slice(0, REVIEWS_ON_HOMEPAGE);
 
   if (allReviews.length === 0) {
-    return null; // Don't render the section if there are no reviews
+    return (
+        <section id="reviews" className="bg-muted/30 dark:bg-muted/10">
+            <div className="container">
+                <div className="text-center mb-12">
+                    <h2 className="text-4xl font-bold tracking-tight">Client Testimonials</h2>
+                    <p className="text-lg text-muted-foreground mt-2">
+                        Be the first to share your experience!
+                    </p>
+                </div>
+                 <div className="mt-12 text-center">
+                    <LeaveReviewButton />
+                </div>
+            </div>
+        </section>
+    );
   }
 
   return (
@@ -60,15 +75,16 @@ export async function ReviewsSection() {
             </Card>
           ))}
         </div>
-        {allReviews.length > REVIEWS_ON_HOMEPAGE && (
-          <div className="mt-12 text-center">
+        <div className="mt-12 text-center flex flex-wrap justify-center items-center gap-4">
+            {allReviews.length > REVIEWS_ON_HOMEPAGE && (
             <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
-              <Link href="/reviews">
+                <Link href="/reviews">
                 Explore More Reviews <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+                </Link>
             </Button>
-          </div>
-        )}
+            )}
+            <LeaveReviewButton />
+        </div>
       </div>
     </section>
   )

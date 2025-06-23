@@ -5,6 +5,7 @@ import { getReviewEntries } from "@/lib/firestore";
 import type { Review } from "@/lib/data";
 import { Star, UserCircle2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { LeaveReviewButton } from "@/components/leave-review-button";
 
 export default async function AllReviewsPage() {
   const reviewsData = await getReviewEntries();
@@ -16,6 +17,9 @@ export default async function AllReviewsPage() {
         <p className="text-lg text-muted-foreground mt-2">
           Hear what my clients have to say about their experience.
         </p>
+        <div className="mt-6">
+            <LeaveReviewButton />
+        </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {reviewsData.map((review: Review) => (
