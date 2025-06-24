@@ -97,7 +97,7 @@ export const servicesData: Service[] = [
   {
     title: "SEO Service Website",
     description: "Developed a modern, SEO-optimized website . Implemented server-side rendering (SSR), meta tags, and schema markup to enhance search engine visibility and performance."
-  },
+  }
 ];
 
 export const demoProjectData: Project[] = [
