@@ -4,10 +4,10 @@ import { Resend } from 'resend';
 import { z } from 'zod';
 
 const contactFormSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(2, "Name must be at least 2 characters.").max(50, "Name must be less than 50 characters."),
   email: z.string().email("Invalid email address"),
-  country: z.string().min(1, "country is required"), // <-- Add this line
-  message: z.string().min(1, "Message is required"),
+  country: z.string().min(2, "Country must be at least 2 characters.").max(100, "Country must be less than 100 characters."),
+  message: z.string().min(10, "Message must be at least 10 characters.").max(500, "Message must be less than 500 characters."),
 });
 
 const apiKey = process.env.RESEND_API_KEY;
@@ -21,7 +21,7 @@ if (apiKey) {
 
 const recipientEmail = 'sayandevelops@gmail.com';
 
-export async function sendContactEmail(formData: { name: string, email: string, country: string, message: string }) { // <-- Add address here
+export async function sendContactEmail(formData: { name: string, email: string, country: string, message: string }) {
   if (!resend) { 
     return { 
       success: false, 
@@ -35,7 +35,7 @@ export async function sendContactEmail(formData: { name: string, email: string, 
       return { success: false, error: "Invalid form data.", issues: validation.error.issues };
     }
 
-    const { name, email, country, message } = validation.data; // <-- Destructure address
+    const { name, email, country, message } = validation.data;
 
     const { data, error } = await resend.emails.send({
       from: 'SayanDevelops Portfolio <onboarding@resend.dev>',
@@ -46,7 +46,7 @@ export async function sendContactEmail(formData: { name: string, email: string, 
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
-          <p><strong>country:</strong> ${country}</p>
+          <p><strong>Country:</strong> ${country}</p>
           <p><strong>Message:</strong></p>
           <p>${message.replace(/\n/g, '<br>')}</p>
         </div>

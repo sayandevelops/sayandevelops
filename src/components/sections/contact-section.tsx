@@ -26,7 +26,7 @@ import { sendContactEmail } from "@/app/actions/send-contact-email"
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters.").max(50, "Name must be less than 50 characters."),
   email: z.string().email("Invalid email address."),
-  country: z.string().min(5, "Country must be at least 5 characters.").max(100, "Country must be less than 100 characters."),
+  country: z.string().min(2, "Country must be at least 2 characters.").max(100, "Country must be less than 100 characters."),
   message: z.string().min(10, "Message must be at least 10 characters.").max(500, "Message must be less than 500 characters."),
 })
 
