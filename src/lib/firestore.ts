@@ -5,6 +5,7 @@ import { db } from './firebase';
 import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, orderBy, query } from 'firebase/firestore';
 import type { ExperienceEntry, Project, CertificateEntry, Review } from './data';
 import { demoExperienceData, demoProjectData, demoCertificatesData, demoReviewsData } from './data';
+import { revalidatePath } from 'next/cache';
 
 const experienceCollectionRef = collection(db, 'experience');
 const projectsCollectionRef = collection(db, 'projects');
@@ -44,15 +45,21 @@ export const getExperienceEntries = async (): Promise<ExperienceEntry[]> => {
 export const updateExperienceEntry = async (id: string, data: Partial<Omit<ExperienceEntry, 'id'>>) => {
   const entryDoc = doc(db, 'experience', id);
   await updateDoc(entryDoc, data);
+  revalidatePath('/');
+  revalidatePath('/experience');
 };
 
 export const addExperienceEntry = async (data: Omit<ExperienceEntry, 'id'>) => {
   await addDoc(experienceCollectionRef, data);
+  revalidatePath('/');
+  revalidatePath('/experience');
 }
 
 export const deleteExperienceEntry = async (id: string) => {
   const entryDoc = doc(db, 'experience', id);
   await deleteDoc(entryDoc);
+  revalidatePath('/');
+  revalidatePath('/experience');
 }
 
 
@@ -89,15 +96,21 @@ export const getProjectEntries = async (): Promise<Project[]> => {
 export const updateProjectEntry = async (id: string, data: Partial<Omit<Project, 'id'>>) => {
   const entryDoc = doc(db, 'projects', id);
   await updateDoc(entryDoc, data);
+  revalidatePath('/');
+  revalidatePath('/projects');
 };
 
 export const addProjectEntry = async (data: Omit<Project, 'id'>) => {
   await addDoc(projectsCollectionRef, data);
+  revalidatePath('/');
+  revalidatePath('/projects');
 }
 
 export const deleteProjectEntry = async (id: string) => {
   const entryDoc = doc(db, 'projects', id);
   await deleteDoc(entryDoc);
+  revalidatePath('/');
+  revalidatePath('/projects');
 }
 
 // --- CERTIFICATES ---
@@ -133,15 +146,21 @@ export const getCertificateEntries = async (): Promise<CertificateEntry[]> => {
 export const updateCertificateEntry = async (id: string, data: Partial<Omit<CertificateEntry, 'id'>>) => {
   const entryDoc = doc(db, 'certificates', id);
   await updateDoc(entryDoc, data);
+  revalidatePath('/');
+  revalidatePath('/certificates');
 };
 
 export const addCertificateEntry = async (data: Omit<CertificateEntry, 'id'>) => {
   await addDoc(certificatesCollectionRef, data);
+  revalidatePath('/');
+  revalidatePath('/certificates');
 }
 
 export const deleteCertificateEntry = async (id: string) => {
   const entryDoc = doc(db, 'certificates', id);
   await deleteDoc(entryDoc);
+  revalidatePath('/');
+  revalidatePath('/certificates');
 }
 
 // --- REVIEWS ---
@@ -177,13 +196,19 @@ export const getReviewEntries = async (): Promise<Review[]> => {
 export const updateReviewEntry = async (id: string, data: Partial<Omit<Review, 'id'>>) => {
   const entryDoc = doc(db, 'reviews', id);
   await updateDoc(entryDoc, data);
+  revalidatePath('/');
+  revalidatePath('/reviews');
 };
 
 export const addReviewEntry = async (data: Omit<Review, 'id'>) => {
   await addDoc(reviewsCollectionRef, data);
+  revalidatePath('/');
+  revalidatePath('/reviews');
 }
 
 export const deleteReviewEntry = async (id: string) => {
   const entryDoc = doc(db, 'reviews', id);
   await deleteDoc(entryDoc);
+  revalidatePath('/');
+  revalidatePath('/reviews');
 }
