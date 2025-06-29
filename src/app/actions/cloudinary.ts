@@ -10,16 +10,18 @@ import { v2 as cloudinary } from 'cloudinary';
 // CLOUDINARY_CLOUD_NAME
 // CLOUDINARY_API_KEY
 // CLOUDINARY_API_SECRET
+// CLOUDINARY_UPLOAD_PRESET
 
 function configureCloudinary() {
     const isConfigured = 
         !!process.env.CLOUDINARY_CLOUD_NAME &&
         !!process.env.CLOUDINARY_API_KEY &&
-        !!process.env.CLOUDINARY_API_SECRET;
+        !!process.env.CLOUDINARY_API_SECRET &&
+        !!process.env.CLOUDINARY_UPLOAD_PRESET;
 
     if (!isConfigured) {
         console.warn(
-            'Cloudinary credentials are not set. Image uploads will fail. Please check your environment variables.'
+            'Cloudinary credentials or upload preset are not set. Image uploads will fail. Please check your environment variables.'
         );
         return false;
     }
@@ -58,7 +60,7 @@ export async function uploadImage(formData: FormData) {
     const fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data;
 
     const result = await cloudinary.uploader.upload(fileUri, {
-      folder: 'portfolio_experience_logos',
+      upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
     });
     
     console.log('Cloudinary Upload Result:', JSON.stringify(result, null, 2));
