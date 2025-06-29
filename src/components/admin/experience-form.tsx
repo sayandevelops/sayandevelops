@@ -93,7 +93,6 @@ export function ExperienceForm({ isOpen, onClose, experience }: ExperienceFormPr
     try {
       let logoUrl = experience?.companyLogo || '';
 
-      // Check if a new file was uploaded (it will be a FileList object)
       if (data.companyLogo && typeof data.companyLogo === 'object' && data.companyLogo.length > 0) {
         const file = data.companyLogo[0];
         const formData = new FormData();
@@ -103,17 +102,21 @@ export function ExperienceForm({ isOpen, onClose, experience }: ExperienceFormPr
         if (result.success && result.url) {
           logoUrl = result.url;
         } else {
-          throw new Error(result.error || 'Image upload failed');
+          toast({
+            title: 'Image Upload Failed',
+            description: result.error || 'An unknown error occurred.',
+            variant: 'destructive',
+          });
+          return; // Stop execution
         }
       }
 
       const techStackArray = data.techStack.split(',').map(item => item.trim()).filter(Boolean);
       
-      // Create a clean data object for Firestore, excluding the file input.
       const { companyLogo, ...restOfData } = data;
       const firestoreData = {
         ...restOfData,
-        companyLogo: logoUrl, // The new URL or the existing one
+        companyLogo: logoUrl,
         techStack: techStackArray,
       };
 
@@ -128,8 +131,8 @@ export function ExperienceForm({ isOpen, onClose, experience }: ExperienceFormPr
     } catch (error) {
       console.error('Failed to save experience:', error);
       toast({
-        title: 'Error',
-        description: (error as Error).message || 'Failed to save experience entry.',
+        title: 'Error Saving Data',
+        description: 'Could not save the entry to the database.',
         variant: 'destructive',
       });
     }

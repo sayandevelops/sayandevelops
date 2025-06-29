@@ -92,7 +92,12 @@ export function CertificateForm({ isOpen, onClose, certificate }: CertificateFor
         if (result.success && result.url) {
           thumbUrl = result.url;
         } else {
-          throw new Error(result.error || 'Image upload failed');
+          toast({
+            title: 'Image Upload Failed',
+            description: result.error || 'An unknown error occurred.',
+            variant: 'destructive',
+          });
+          return; // Stop execution
         }
       }
       
@@ -113,8 +118,8 @@ export function CertificateForm({ isOpen, onClose, certificate }: CertificateFor
     } catch (error) {
       console.error('Failed to save certificate:', error);
       toast({
-        title: 'Error',
-        description: (error as Error).message || 'Failed to save certificate entry.',
+        title: 'Error Saving Data',
+        description: 'Could not save the entry to the database.',
         variant: 'destructive',
       });
     }
