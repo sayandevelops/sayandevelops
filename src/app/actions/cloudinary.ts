@@ -4,52 +4,51 @@
 import { v2 as cloudinary } from 'cloudinary';
 
 // --- IMPORTANT ---
-// Configure Cloudinary with your credentials.
-// 1. Create a Cloudinary account at https://cloudinary.com/
-// 2. Find your "Cloud Name", "API Key", and "API Secret" in your dashboard.
-//    - The "Cloud Name" is your unique account identifier, usually found at the top of your Cloudinary dashboard. It is NOT "Root".
-//    - The "API Key" and "API Secret" are also found in your dashboard, likely under a "Settings" or "API Keys" section.
-// 3. Add them to your .env.local file.
-//
-// .env.local
-// CLOUDINARY_CLOUD_NAME=your_actual_cloud_name
-// CLOUDINARY_API_KEY=your_api_key
-// CLOUDINARY_API_SECRET=your_api_secret
-//
-// 4. IMPORTANT: Restart your development server after creating or changing this file.
+// This function relies on environment variables.
+// Ensure your .env.local file (for local development) and your
+// Vercel project settings (for production) have the correct values for:
+// CLOUDINARY_CLOUD_NAME
+// CLOUDINARY_API_KEY
+// CLOUDINARY_API_SECRET
 
-if (
-  !process.env.CLOUDINARY_CLOUD_NAME ||
-  !process.env.CLOUDINARY_API_KEY ||
-  !process.env.CLOUDINARY_API_SECRET
-) {
-  console.warn(
-    'Cloudinary credentials are not set. Image uploads will fail. Please check your .env.local file.'
-  );
-} else {
-  cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-    secure: true,
-  });
+function configureCloudinary() {
+    const isConfigured = 
+        !!process.env.CLOUDINARY_CLOUD_NAME &&
+        !!process.env.CLOUDINARY_API_KEY &&
+        !!process.env.CLOUDINARY_API_SECRET;
+
+    if (!isConfigured) {
+        console.warn(
+            'Cloudinary credentials are not set. Image uploads will fail. Please check your environment variables.'
+        );
+        return false;
+    }
+
+    cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+        secure: true,
+    });
+    return true;
 }
+
+// Initial configuration check
+configureCloudinary();
 
 
 export async function uploadImage(formData: FormData) {
+  if (!configureCloudinary()) {
+      return { success: false, error: 'Cloudinary is not configured on the server. Please check server logs.' };
+  }
+
   const file = formData.get('file') as File;
 
   if (!file || file.size === 0) {
     return { success: false, error: 'No file provided.' };
   }
   
-  console.log('Attempting to upload image. Cloudinary configured:', !!cloudinary.config().cloud_name);
-
-
-  // Double-check config before upload attempt
-  if (!cloudinary.config().cloud_name) {
-    return { success: false, error: 'Cloudinary is not configured. Please check server logs for details.' };
-  }
+  console.log('Attempting to upload image:', file.name);
 
   try {
     const fileBuffer = await file.arrayBuffer();
@@ -61,19 +60,24 @@ export async function uploadImage(formData: FormData) {
     const result = await cloudinary.uploader.upload(fileUri, {
       folder: 'portfolio_experience_logos',
     });
+    
+    console.log('Cloudinary Upload Result:', JSON.stringify(result, null, 2));
 
     if (result.secure_url) {
       return { success: true, url: result.secure_url };
     } else {
-      return { success: false, error: 'Cloudinary upload failed.' };
+      // This case should ideally not happen if an error wasn't thrown
+      return { success: false, error: 'Cloudinary upload succeeded but no secure_url was returned.' };
     }
   } catch (error: any) {
-    console.error('Cloudinary Upload Error:', error);
+    console.error('Cloudinary Upload Error Caught:', JSON.stringify(error, null, 2));
+    
     let errorMessage = 'An unknown error occurred during upload.';
-    // Handle Cloudinary's specific error object structure or a standard Error
+    // Cloudinary errors often have a message and an http_code property.
     if (error && error.message) {
       errorMessage = error.message;
     }
-    return { success: false, error: errorMessage };
+
+    return { success: false, error: `Upload failed: ${errorMessage}` };
   }
 }
