@@ -17,7 +17,7 @@ export function HeroSection() {
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path strokeLineCap="round" strokeLineJoin="round" strokeWidth="1" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h8a2 2 0 002-2v-4m0 0H9m3-7h3m0 0h2M9 12l2-2 2 2m-2 2v4" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h8a2 2 0 002-2v-4m0 0H9m3-7h3m0 0h2M9 12l2-2 2 2m-2 2v4" />
         </svg>
 
         <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 animate-fadeInUp text-gradient-primary-accent">
